@@ -1,0 +1,63 @@
+zabbix_export:
+  version: '6.0'
+  date: '2022-04-18T20:27:40Z'
+  groups:
+    -
+      uuid: 36bff6c29af64692839d077febfc7079
+      name: 'Templates/Network devices'
+  templates:
+    -
+      uuid: 2e30443948c64b1d88f9d25ea619e734
+      template: 'Aligera AG521'
+      name: 'Aligera AG521'
+      description: |
+        Documentação
+        https://docs.aligera.com.br/index.php/Ag521
+        
+        Lista de Alarmes
+        http://suporte.aligera.com.br/support/solutions/articles/35000098612-alarmes-em-interfaces-e1
+        
+        Download das MIBs
+        http://suporte.aligera.com.br/support/solutions/articles/35000089185-snmp
+        
+        https://view.officeapps.live.com/op/view.aspx?src=https%3A%2F%2Fdocs.aligera.com.br%2Fimages%2F6%2F65%2FSnmp_oids.xlsx&wdOrigin=BROWSELINK
+      templates:
+        -
+          name: 'Generic SNMP'
+        -
+          name: 'Network Generic Device SNMP'
+      groups:
+        -
+          name: 'Templates/Network devices'
+      items:
+        -
+          uuid: 36c5dd4639ba406496a3b48a44f1f296
+          name: 'E1 Alarms'
+          type: SNMP_AGENT
+          snmp_oid: 1.3.6.1.4.1.41933.1.2.2.1.2.1
+          key: e1Alarms
+          valuemap:
+            name: 'E1 Alarms'
+      valuemaps:
+        -
+          uuid: ec788ce0d1f0447abff8e55b74297e17
+          name: 'E1 Alarms'
+          mappings:
+            -
+              value: '0'
+              newvalue: OK
+            -
+              value: '1'
+              newvalue: LOS
+            -
+              value: '2'
+              newvalue: AIS
+            -
+              value: '3'
+              newvalue: BFAE
+            -
+              value: '4'
+              newvalue: MFAE
+            -
+              value: '5'
+              newvalue: RAI
