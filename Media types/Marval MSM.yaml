@@ -1,0 +1,379 @@
+zabbix_export:
+  version: '6.0'
+  date: '2022-04-18T20:37:28Z'
+  media_types:
+    -
+      name: 'Marval MSM'
+      type: WEBHOOK
+      parameters:
+        -
+          name: alert_host
+          value: '{HOST.NAME}'
+        -
+          name: alert_message
+          value: '{ALERT.MESSAGE}'
+        -
+          name: alert_subject
+          value: '{ALERT.SUBJECT}'
+        -
+          name: event_id
+          value: '{EVENT.ID}'
+        -
+          name: event_nseverity
+          value: '{EVENT.NSEVERITY}'
+        -
+          name: event_source
+          value: '{EVENT.SOURCE}'
+        -
+          name: event_update_status
+          value: '{EVENT.UPDATE.STATUS}'
+        -
+          name: event_value
+          value: '{EVENT.VALUE}'
+        -
+          name: marval_assignee
+          value: '< Insert here>'
+        -
+          name: marval_auth_token
+          value: '< Insert here>'
+        -
+          name: marval_contact
+          value: '< Insert here>'
+        -
+          name: marval_customer
+          value: '< Insert here>'
+        -
+          name: marval_impact
+          value: '< Insert here>'
+        -
+          name: marval_note_type
+          value: Public
+        -
+          name: marval_priority_average
+          value: '< Insert here>'
+        -
+          name: marval_priority_disaster
+          value: '< Insert here>'
+        -
+          name: marval_priority_high
+          value: '< Insert here>'
+        -
+          name: marval_priority_information
+          value: '< Insert here>'
+        -
+          name: marval_priority_unclassified
+          value: '< Insert here>'
+        -
+          name: marval_priority_warning
+          value: '< Insert here>'
+        -
+          name: marval_request_source
+          value: '< Insert here>'
+        -
+          name: marval_service
+          value: '< Insert here>'
+        -
+          name: marval_status_close
+          value: '< Insert here>'
+        -
+          name: marval_status_open
+          value: '< Insert here>'
+        -
+          name: marval_template
+          value: '< Insert here>'
+        -
+          name: marval_ticketid
+          value: '{EVENT.TAGS.marval_ticketid}'
+        -
+          name: marval_urgency
+          value: '< Insert here>'
+        -
+          name: marval_url
+          value: '< Insert here>'
+      script: |
+        var Marval = {
+            params: {},
+        
+            setParams: function (params) {
+                if (typeof params !== 'object') {
+                    return;
+                }
+        
+                Marval.params = params;
+        
+                if (typeof Marval.params.url === 'string') {
+                    if (!Marval.params.url.endsWith('/')) {
+                        Marval.params.url += '/';
+                    }
+                }
+            },
+        
+            request: function (method, query, data) {
+                var response;
+                var request = new CurlHttpRequest();
+                var url = Marval.params.url + query;
+        
+                request.AddHeader('Content-Type: application/json');
+                request.AddHeader('Authorization: Bearer ' + Marval.params.auth_token);
+        
+                if (typeof data !== 'undefined') {
+                    data = JSON.stringify(data);
+                }
+        
+                Zabbix.Log(4, '[ Marval Webhook ] Sending request: ' +
+                    url + ((typeof data === 'string') ? (' ' + data) : ''));
+                
+                switch (method) {
+                    case 'get':
+                        response = request.Get(url, data);
+                        break;
+            
+                    case 'post':
+                        response = request.Post(url, data);
+                        break;
+            
+                    case 'put':
+                        response = request.Put(url, data);
+                        break;
+            
+                    default:
+                        throw 'Unsupported HTTP request method: ' + method;
+                    }
+                
+                Zabbix.Log(4, '[ Marval Webhook ] Received response with status code ' + request.Status() + ': ' + response);
+        
+                if (request.Status() < 200 || request.Status() >= 300) {
+                    var message = 'Request failed with status code ' + request.Status();    
+                    message += ': ' + response;
+                    throw message + ' Check debug log for more information.';
+                }
+        
+                if (response !== null) {
+                    try {
+                        response = JSON.parse(response);
+                    }
+                    catch (error) {
+                        Zabbix.Log(4, '[ Marval Webhook ] Failed to parse response received from Marval');
+                        response = null;
+                    }
+                }
+        
+                if (typeof response.Error !== 'undefined'
+                    && Object.keys(response.Error).length > 0) {
+                    message = 'Request failed: ' + JSON.stringify(response.Error);
+                }
+                    
+                return {
+                    status: request.Status(),
+                    response: response
+                };
+            },
+        
+            createTicket: function(subject, priority) {
+                var data = {
+                    Description: subject,
+                    ServiceHierarchyIds: [Marval.params.service],
+                    CustomerId: Marval.params.customer,
+                    ContactId: Marval.params.contact,
+                    AssigneeId: Marval.params.assignee,
+                    WorkflowStatusId: Marval.params.status_open,
+                    RequestSourceId: Marval.params.request_source,
+                    ImpactId: Marval.params.impact,
+                    UrgencyId: Marval.params.urgency
+                }, 
+                result;
+        
+                switch (priority) {
+                    case '5':
+                        data.PriorityId = Marval.params.marval_priority_disaster;
+                        break;
+                    case '4':
+                        data.PriorityId = Marval.params.marval_priority_high;
+                        break;
+                    case '3':
+                        data.PriorityId = Marval.params.marval_priority_average;
+                        break;
+                    case '2':
+                        data.PriorityId = Marval.params.marval_priority_warning;
+                        break;
+                    case '1':
+                        data.PriorityId = Marval.params.marval_priority_information;
+                        break;
+                    case '0':
+                        data.PriorityId = Marval.params.marval_priority_unclassified;
+                        break;
+                    default:
+                        throw 'Unsupported priority';
+                }
+        
+                result = Marval.request('post','MSM/api/serviceDesk/operational/requestTemplates/'
+                                        + Marval.params.template +
+                                        '/requests', 
+                                        data);
+                
+                // Modificar caso necessário
+                return result;
+            },
+        
+            createNote: function(ticket_id, type, content){
+                var note = {
+                    Content: content,
+                    Type: type
+                },
+                result_createNote;
+        
+                result_createNote = Marval.request('post',
+                    'MSM/api/serviceDesk/operational/requests/' +
+                    ticket_id + '/notes', 
+                    note
+                );
+        
+                return result_createNote;
+            },
+            
+            updateStatusTicket: function(ticket_id, newStatus, updatedOn){
+                //TODO
+                //var dateISO = new Date().toISOString();
+                var newStatus = {
+                    WorkflowStatusId: newStatus,
+                    UpdatedOn: updatedOn
+                };
+        
+                var result_inProgress = Marval.request('post',
+                    'MSM/api/serviceDesk/operational/requests/' +
+                    ticket_id + '/states', 
+                    newStatus
+                );
+                
+                var result_note = Marval.createNote(
+                    ticket_id, 
+                    params.marval_note_type, 
+                    params.alert_message
+                );
+                if (result_inProgress === null || result_note === null) {
+                    throw 'Ticket unresolved';
+                } else {
+                    return "resolved";
+                }        
+            }
+        };
+        
+        try {
+            var params = JSON.parse(value);
+            var params_marval = {};
+            var params_update = {};
+            var result = { tags: {} };
+            var priority;
+        
+            Object.keys(params).forEach(function (key) {
+                if (key.startsWith('marval_')) {
+                    params_marval[key.substring(7)] = params[key].trim();
+                }
+                else if (key.startsWith('event_update_')) {
+                    params_update[key.substring(13)] = params[key];
+                }
+            });
+        
+            if ([0, 1, 2, 3].indexOf(parseInt(params.event_source)) === -1) {
+                throw 'Incorrect "event_source" parameter given: ' + params.event_source + '\nMust be 0-3.';
+            }
+        
+            if (params.event_value !== '0' && params.event_value !== '1'
+                && (params.event_source === '0' || params.event_source === '3')) {
+                throw 'Incorrect "event_value" parameter given: ' + params.event_value + '\nMust be 0 or 1.';
+            }
+        
+            if (params.event_source !== '0' && params.event_value === '0') {
+                throw 'Recovery operations are supported only for trigger-based actions.';
+            }
+        
+            if (params.event_source === '0'
+                && ((params.event_value === '1' && params.event_update_status === '1')
+                    || (params.event_value === '0'
+                        && (params.event_update_status === '0' || params.event_update_status === '1')))
+                && (isNaN(parseInt(params.marval_ticketid)) || parseInt(params.marval_ticketid) < 1 )) {
+                throw 'Incorrect "otrs_ticket_id" parameter given: ' + params.marval_ticketid +
+                    '\nMust be positive integer.';
+            }
+        
+            Marval.setParams(params_marval);
+        
+            // Criação de chamados para eventos internos (problemas internos, descobertas...)
+            if (params.event_source !== '0' && params.event_value !== '0') {
+                Marval.createTicket(
+                    params.alert_subject,
+                    params.event_nseverity
+                );
+            }
+            // Criação de chamado baseado em eventos de trigger
+            else if (params.event_value === '1' && params_update.status === '0') {
+                var ticket_response = Marval.createTicket(
+                    params.alert_host + ': ' + 
+                    params.alert_subject,
+                    params.event_nseverity);
+                    
+                result.tags.marval_ticketid = ticket_response.response.links[0].href.substring(
+                    ticket_response.response.links[0].href.lastIndexOf("/") + 1
+                );    
+           
+                var note_response = Marval.createNote(
+                    Number(result.tags.marval_ticketid), 
+                    params.marval_note_type, 
+                    params.alert_message
+                );
+            }
+            // Fechando chamados
+            //if (params.event_value === '0' && params_update.status === '1') 
+            else {
+                var result_resolved = Marval.updateStatusTicket(
+                    params.marval_ticketid, 
+                    Number(params.marval_status_close), 
+                    new Date().toISOString()
+                );
+        
+                result.tags.marval_ticket_status = result_resolved;
+            }    
+        
+            return JSON.stringify(result);
+        }
+        catch (error) {
+            Zabbix.Log(3, '[ Marval Webhook ] ERROR: ' + error);
+            throw 'Sending failed: ' + error;
+        }
+      process_tags: 'YES'
+      show_event_menu: 'YES'
+      event_menu_url: '{EVENT.TAGS.marval_ticketlink}'
+      event_menu_name: 'Marval: ticket #{EVENT.TAGS.marval_ticketid}'
+      message_templates:
+        -
+          event_source: TRIGGERS
+          operation_mode: PROBLEM
+          subject: '{EVENT.NAME}'
+          message: |
+            --------------- ABERTURA DE CHAMADO ---------------
+            Problema iniciado às {EVENT.TIME} do dia {EVENT.DATE}
+            Descrição do incidente: {EVENT.NAME}
+            Host: {HOST.NAME}
+            Severidade: {EVENT.SEVERITY}
+            Valor atual do item monitorado:{EVENT.OPDATA}
+            ID do Evento: {EVENT.ID}
+            {TRIGGER.URL}
+        -
+          event_source: TRIGGERS
+          operation_mode: RECOVERY
+          subject: 'Resolved in {EVENT.DURATION}: {EVENT.RECOVERY.NAME}'
+          message: |
+            --------------- RESOLUÇÃO DE CHAMADO ---------------
+            Problema resolvido às {EVENT.RECOVERY.TIME} do dia {EVENT.RECOVERY.DATE}
+            Problema: {EVENT.RECOVERY.NAME}
+            Valor atual do item monitorado: {EVENT.OPDATA}
+            Duração do problema: {EVENT.DURATION}
+        -
+          event_source: TRIGGERS
+          operation_mode: UPDATE
+          subject: 'Updated problem in {EVENT.AGE}: {EVENT.NAME}'
+          message: |
+            {USER.FULLNAME} {EVENT.UPDATE.ACTION} problem at {EVENT.UPDATE.DATE} {EVENT.UPDATE.TIME}.
+            {EVENT.UPDATE.MESSAGE}
+            
+            Current problem status is {EVENT.STATUS}, age is {EVENT.AGE}, acknowledged: {EVENT.ACK.STATUS}.
