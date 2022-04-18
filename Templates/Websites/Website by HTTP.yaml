@@ -1,0 +1,64 @@
+zabbix_export:
+  version: '6.0'
+  date: '2022-04-18T20:50:10Z'
+  groups:
+    -
+      uuid: a571c0d144b14fd4a87a9d9b2aa9fcd6
+      name: Templates/Applications
+  templates:
+    -
+      uuid: dc8a393e5a25466c9e22de5da7f9d302
+      template: 'Website by HTTP'
+      name: 'Website by HTTP'
+      groups:
+        -
+          name: Templates/Applications
+      httptests:
+        -
+          uuid: 512ae72b3fca4730822eac8cb5c1ce54
+          name: 'Basic access'
+          attempts: '3'
+          steps:
+            -
+              name: 'Home page'
+              url: '{$URL}'
+              timeout: '{$LIMIT_TIME}'
+              required: '{$REQUIRED_STRING}'
+              status_codes: '{$REQUIRED_HTTP_CODE}'
+      tags:
+        -
+          tag: class
+          value: software
+        -
+          tag: target
+          value: website
+      macros:
+        -
+          macro: '{$LIMIT_TIME}'
+          value: 5s
+          description: 'Limit timeout'
+        -
+          macro: '{$REQUIRED_HTTP_CODE}'
+          value: '200'
+          description: 'Expected HTTP responde code'
+        -
+          macro: '{$REQUIRED_STRING}'
+          description: 'String for page validation'
+        -
+          macro: '{$URL}'
+          description: 'Site address'
+  triggers:
+    -
+      uuid: 6d5f642a9bbe48d79af27260218828f8
+      expression: 'last(/Website by HTTP/web.test.fail[Basic access])<>0'
+      name: 'Failed to access webpage'
+      priority: HIGH
+      dependencies:
+        -
+          name: 'HTTP response code is not equal to {$REQUIRED_HTTP_CODE}'
+          expression: 'last(/Website by HTTP/web.test.rspcode[Basic access,Home page])<>{$REQUIRED_HTTP_CODE}'
+    -
+      uuid: 9324e2dd6acb4c3da9d6dd5e7d4fe4c3
+      expression: 'last(/Website by HTTP/web.test.rspcode[Basic access,Home page])<>{$REQUIRED_HTTP_CODE}'
+      name: 'HTTP response code is not equal to {$REQUIRED_HTTP_CODE}'
+      priority: HIGH
