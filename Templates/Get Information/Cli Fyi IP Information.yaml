@@ -1,0 +1,152 @@
+zabbix_export:
+  version: '6.0'
+  date: '2022-04-18T19:55:51Z'
+  groups:
+    -
+      uuid: a571c0d144b14fd4a87a9d9b2aa9fcd6
+      name: Templates/Applications
+  templates:
+    -
+      uuid: b6db23cdf3cf40dfb2863f21b7030201
+      template: 'Cli Fyi IP Information'
+      name: 'Cli Fyi IP Information'
+      groups:
+        -
+          name: Templates/Applications
+      items:
+        -
+          uuid: 5f6c00baedc04175b31adddd8f51f38b
+          name: 'Cli Fyi'
+          type: HTTP_AGENT
+          key: cli.fyi
+          delay: 1d
+          history: '0'
+          trends: '0'
+          value_type: TEXT
+          timeout: 10s
+          url: 'https://cli.fyi/{HOST.CONN}'
+          output_format: JSON
+          tags:
+            -
+              tag: Application
+              value: 'Zabbix raw'
+        -
+          uuid: 884122acfbf44f41b1c918dc9ac72f62
+          name: Cidade
+          type: DEPENDENT
+          key: cli.fyi.city
+          delay: '0'
+          history: 7d
+          trends: '0'
+          value_type: TEXT
+          preprocessing:
+            -
+              type: JSONPATH
+              parameters:
+                - $.body.data.city
+            -
+              type: DISCARD_UNCHANGED
+              parameters:
+                - ''
+          master_item:
+            key: cli.fyi
+          tags:
+            -
+              tag: Application
+              value: Informações
+        -
+          uuid: 14886390904c4ff28a67c991271e4d4e
+          name: País
+          type: DEPENDENT
+          key: cli.fyi.country
+          delay: '0'
+          history: 7d
+          trends: '0'
+          value_type: TEXT
+          preprocessing:
+            -
+              type: JSONPATH
+              parameters:
+                - $.body.data.country
+            -
+              type: DISCARD_UNCHANGED
+              parameters:
+                - ''
+          master_item:
+            key: cli.fyi
+          tags:
+            -
+              tag: Application
+              value: Informações
+        -
+          uuid: 16a7015ba75a4890a1280d3a9f603055
+          name: Latitude
+          type: DEPENDENT
+          key: cli.fyi.latitude
+          delay: '0'
+          history: 7d
+          trends: '0'
+          value_type: TEXT
+          preprocessing:
+            -
+              type: JSONPATH
+              parameters:
+                - $.body.data.latitude
+            -
+              type: DISCARD_UNCHANGED
+              parameters:
+                - ''
+          master_item:
+            key: cli.fyi
+          tags:
+            -
+              tag: Application
+              value: Informações
+        -
+          uuid: 1a40bfd6092e45d8b007091c9ae33877
+          name: Longitude
+          type: DEPENDENT
+          key: cli.fyi.longitude
+          delay: '0'
+          history: 7d
+          trends: '0'
+          value_type: TEXT
+          preprocessing:
+            -
+              type: JSONPATH
+              parameters:
+                - $.body.data.longitude
+            -
+              type: DISCARD_UNCHANGED
+              parameters:
+                - ''
+          master_item:
+            key: cli.fyi
+          tags:
+            -
+              tag: Application
+              value: Informações
+        -
+          uuid: e454411971d74fe685265ad240f8be9c
+          name: Provedor
+          type: DEPENDENT
+          key: cli.fyi.organisation
+          delay: '0'
+          history: 7d
+          trends: '0'
+          value_type: TEXT
+          preprocessing:
+            -
+              type: JSONPATH
+              parameters:
+                - $.body.data.organisation
+            -
+              type: DISCARD_UNCHANGED
+              parameters:
+                - ''
+          master_item:
+            key: cli.fyi
+          tags:
+            -
+              tag: Application
+              value: Informações

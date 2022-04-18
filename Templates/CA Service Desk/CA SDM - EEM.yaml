@@ -1,0 +1,84 @@
+zabbix_export:
+  version: '6.0'
+  date: '2022-04-18T19:19:55Z'
+  groups:
+    -
+      uuid: a571c0d144b14fd4a87a9d9b2aa9fcd6
+      name: Templates/Applications
+  templates:
+    -
+      uuid: fbbf013893bc45be8d70deec91b0c712
+      template: 'CA SDM - EEM'
+      name: 'CA SDM - EEM'
+      groups:
+        -
+          name: Templates/Applications
+      items:
+        -
+          uuid: b5ec696301b64c8dbc95c3c755cd303a
+          name: 'Status do serviço "CA Directory - itechpoz"'
+          key: 'service.info["CA Directory - itechpoz"]'
+          history: 7d
+          trends: 90d
+          valuemap:
+            name: 'Windows service state'
+          tags:
+            -
+              tag: Application
+              value: 'CA SDM'
+          triggers:
+            -
+              uuid: bc480f39772749cd86b8c8a44e5501d4
+              expression: 'last(/CA SDM - EEM/service.info["CA Directory - itechpoz"])<>0'
+              name: 'Serviço "CA Directory - itechpoz" não está em execução'
+              priority: HIGH
+        -
+          uuid: aa6c281e561a47d48835dc47a5d0ff72
+          name: 'Status do serviço "CA iTechnology iGateway 4.7"'
+          key: 'service.info["CA iTechnology iGateway 4.7"]'
+          history: 7d
+          trends: 90d
+          valuemap:
+            name: 'Windows service state'
+          tags:
+            -
+              tag: Application
+              value: 'CA SDM'
+          triggers:
+            -
+              uuid: d093449ae63a4b63bcd8403b851edd6d
+              expression: 'last(/CA SDM - EEM/service.info["CA iTechnology iGateway 4.7"])<>0'
+              name: 'Serviço "CA iTechnology iGateway 4.7" não está em execução'
+              priority: HIGH
+      valuemaps:
+        -
+          uuid: 94eacf0ef1b240d9af42b1de93bc5660
+          name: 'Windows service state'
+          mappings:
+            -
+              value: '0'
+              newvalue: Running
+            -
+              value: '1'
+              newvalue: Paused
+            -
+              value: '3'
+              newvalue: 'Pause pending'
+            -
+              value: '4'
+              newvalue: 'Continue pending'
+            -
+              value: '5'
+              newvalue: 'Stop pending'
+            -
+              value: '6'
+              newvalue: Stopped
+            -
+              value: '7'
+              newvalue: Unknown
+            -
+              value: '255'
+              newvalue: 'No such service'
+            -
+              value: '2'
+              newvalue: 'Start pending'

@@ -1,0 +1,232 @@
+zabbix_export:
+  version: '6.0'
+  date: '2022-04-18T19:59:58Z'
+  groups:
+    -
+      uuid: a571c0d144b14fd4a87a9d9b2aa9fcd6
+      name: Templates/Applications
+  templates:
+    -
+      uuid: f26b8efc6f75414984ba607ecbd005aa
+      template: 'LACNIC Whois'
+      name: 'LACNIC Whois'
+      description: |
+        Retorno do comando whois.
+        Necessário instalar os seguintes pacotes (Centos 8):
+        dnf -y install whois whois-nls
+        
+        Créditos da ferramenta:
+        https://www.lacnic.net/
+      groups:
+        -
+          name: Templates/Applications
+      items:
+        -
+          uuid: 8c19afba26f8434e89d5b955612a4fe4
+          name: 'Data da última modificação'
+          type: DEPENDENT
+          key: whois.changed
+          delay: '0'
+          trends: '0'
+          value_type: TEXT
+          description: 'Data da última modificação realizada na informação desse ponto de contato'
+          preprocessing:
+            -
+              type: REGEX
+              parameters:
+                - 'changed:     (.*)'
+                - \1
+          master_item:
+            key: 'whois.sh[{HOST.CONN}]'
+          tags:
+            -
+              tag: Application
+              value: Informações
+        -
+          uuid: 2719432c51a14e5caf526f27a049bb72
+          name: 'Código do país'
+          type: DEPENDENT
+          key: whois.country
+          delay: '0'
+          history: 7d
+          trends: '0'
+          value_type: TEXT
+          description: 'Código do país da organização'
+          preprocessing:
+            -
+              type: REGEX
+              parameters:
+                - 'country:     (.*)'
+                - \1
+          master_item:
+            key: 'whois.sh[{HOST.CONN}]'
+          tags:
+            -
+              tag: Application
+              value: Informações
+        -
+          uuid: 689db1cace1249a0a9cb5b56edbfc149
+          name: 'Data da criação'
+          type: DEPENDENT
+          key: whois.created
+          delay: '0'
+          history: 7d
+          trends: '0'
+          value_type: TEXT
+          description: 'Data de alocação do recurso da Internet'
+          preprocessing:
+            -
+              type: REGEX
+              parameters:
+                - 'created:     (.*)'
+                - \1
+          master_item:
+            key: 'whois.sh[{HOST.CONN}]'
+          tags:
+            -
+              tag: Application
+              value: Informações
+        -
+          uuid: c3475ef4753145ff9522c4c133f3c45d
+          name: E-mail
+          type: DEPENDENT
+          key: whois.email
+          delay: '0'
+          history: 7d
+          trends: '0'
+          value_type: TEXT
+          preprocessing:
+            -
+              type: REGEX
+              parameters:
+                - 'e-mail:      (.*)'
+                - \1
+          master_item:
+            key: 'whois.sh[{HOST.CONN}]'
+          tags:
+            -
+              tag: Application
+              value: Informações
+        -
+          uuid: c7b58e68dc6b4dfd940526d1d0f62fc5
+          name: 'Bloco de IPs alocados'
+          type: DEPENDENT
+          key: whois.inetnum
+          delay: '0'
+          history: 7d
+          trends: '0'
+          value_type: TEXT
+          description: 'Bloco IP versão 4 ou versão 6 alocado à organização.'
+          preprocessing:
+            -
+              type: REGEX
+              parameters:
+                - 'inetnum:     (.*)'
+                - \1
+          master_item:
+            key: 'whois.sh[{HOST.CONN}]'
+          tags:
+            -
+              tag: Application
+              value: Informações
+        -
+          uuid: 6376cebaaa7d4a03af6f2fe65957c397
+          name: 'Bloco de IPs delegados'
+          type: DEPENDENT
+          key: whois.inetrev
+          delay: '0'
+          history: 7d
+          trends: '0'
+          value_type: TEXT
+          description: 'Indica o bloco total ou parcial que foi delegado;'
+          preprocessing:
+            -
+              type: REGEX
+              parameters:
+                - 'inetrev:     (.*)'
+                - \1
+          master_item:
+            key: 'whois.sh[{HOST.CONN}]'
+          tags:
+            -
+              tag: Application
+              value: Informações
+        -
+          uuid: 307ec8b93f224d3fa33ce889c5d1cb97
+          name: Proprietário
+          type: DEPENDENT
+          key: whois.owner
+          delay: '0'
+          history: 7d
+          trends: '0'
+          value_type: TEXT
+          description: 'Nome da organização cujo o recurso lhe foi alocado'
+          preprocessing:
+            -
+              type: REGEX
+              parameters:
+                - 'owner:       (.*)'
+                - \1
+          master_item:
+            key: 'whois.sh[{HOST.CONN}]'
+          tags:
+            -
+              tag: Application
+              value: Informações
+        -
+          uuid: ad41f39a8d184ae2b914398dfdbca5ed
+          name: 'ID do Proprietário'
+          type: DEPENDENT
+          key: whois.ownerid
+          delay: '0'
+          history: 7d
+          trends: '0'
+          value_type: TEXT
+          description: 'Código da organização no banco de dados do LACNIC'
+          preprocessing:
+            -
+              type: REGEX
+              parameters:
+                - 'ownerid:     (.*)'
+                - \1
+          master_item:
+            key: 'whois.sh[{HOST.CONN}]'
+          tags:
+            -
+              tag: Application
+              value: Informações
+        -
+          uuid: b037bcb340f84c53ab0f549ed963b64c
+          name: Responsável
+          type: DEPENDENT
+          key: whois.responsible
+          delay: '0'
+          history: 7d
+          trends: '0'
+          value_type: TEXT
+          description: 'Nome da pessoa de contato ou grupo responsável na organização'
+          preprocessing:
+            -
+              type: REGEX
+              parameters:
+                - 'responsible: (.*)'
+                - \1
+          master_item:
+            key: 'whois.sh[{HOST.CONN}]'
+          tags:
+            -
+              tag: Application
+              value: Informações
+        -
+          uuid: fa4a46da77c143ea9183a94b376c2030
+          name: Whois
+          type: EXTERNAL
+          key: 'whois.sh[{HOST.CONN}]'
+          delay: 10m
+          history: 1h
+          trends: '0'
+          value_type: TEXT
+          tags:
+            -
+              tag: Application
+              value: 'Zabbix raw'

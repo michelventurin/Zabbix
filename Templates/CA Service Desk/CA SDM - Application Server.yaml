@@ -1,0 +1,102 @@
+zabbix_export:
+  version: '6.0'
+  date: '2022-04-18T19:19:14Z'
+  groups:
+    -
+      uuid: a571c0d144b14fd4a87a9d9b2aa9fcd6
+      name: Templates/Applications
+  templates:
+    -
+      uuid: e4a815d4891c449596b48af837dec6b1
+      template: 'CA SDM - Application Server'
+      name: 'CA SDM - Application Server'
+      groups:
+        -
+          name: Templates/Applications
+      items:
+        -
+          uuid: fe98a02cf8c4449d993d535863aa5256
+          name: 'Status do serviço "CA Service Desk Manager ODBC Agent"'
+          key: 'service.info["CA Service Desk Manager ODBC Agent"]'
+          history: 7d
+          trends: 90d
+          valuemap:
+            name: 'Windows service state'
+          tags:
+            -
+              tag: Application
+              value: 'CA SDM'
+          triggers:
+            -
+              uuid: e3769240f2bd4143a52e54f83a5eb3ef
+              expression: 'last(/CA SDM - Application Server/service.info["CA Service Desk Manager ODBC Agent"])<>0'
+              name: 'Serviço "CA Service Desk Manager ODBC Agent" não está em execução'
+              priority: HIGH
+        -
+          uuid: 71113256d6ef4c6398ec528243f3d7f0
+          name: 'Status do serviço "CA Service Desk Manager ODBC Data Access"'
+          key: 'service.info["CA Service Desk Manager ODBC Data Access"]'
+          history: 7d
+          trends: 90d
+          valuemap:
+            name: 'Windows service state'
+          tags:
+            -
+              tag: Application
+              value: 'CA SDM'
+          triggers:
+            -
+              uuid: 7776f47b433e40b4a8e0f28ebe32990e
+              expression: 'last(/CA SDM - Application Server/service.info["CA Service Desk Manager ODBC Data Access"])<>0'
+              name: 'Serviço "CA Service Desk Manager ODBC Data Access" não está em execução'
+              priority: HIGH
+        -
+          uuid: 8f6abc0fd9454add9bb2ff7d4c6b848a
+          name: 'Status do serviço "CA Service Desk Manager Servidor"'
+          key: 'service.info["CA Service Desk Manager Servidor"]'
+          history: 7d
+          trends: 90d
+          valuemap:
+            name: 'Windows service state'
+          tags:
+            -
+              tag: Application
+              value: 'CA SDM'
+          triggers:
+            -
+              uuid: 08990cae44fd4f43ac60bbe63be97f45
+              expression: 'last(/CA SDM - Application Server/service.info["CA Service Desk Manager Servidor"])<>0'
+              name: 'Serviço "CA Service Desk Manager Servidor" não está em execução'
+              priority: HIGH
+      valuemaps:
+        -
+          uuid: 2cbe0cd4cf194c34b7111e961c0a6d53
+          name: 'Windows service state'
+          mappings:
+            -
+              value: '0'
+              newvalue: Running
+            -
+              value: '1'
+              newvalue: Paused
+            -
+              value: '3'
+              newvalue: 'Pause pending'
+            -
+              value: '4'
+              newvalue: 'Continue pending'
+            -
+              value: '5'
+              newvalue: 'Stop pending'
+            -
+              value: '6'
+              newvalue: Stopped
+            -
+              value: '7'
+              newvalue: Unknown
+            -
+              value: '255'
+              newvalue: 'No such service'
+            -
+              value: '2'
+              newvalue: 'Start pending'

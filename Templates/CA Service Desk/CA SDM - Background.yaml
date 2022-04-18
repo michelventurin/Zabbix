@@ -1,0 +1,66 @@
+zabbix_export:
+  version: '6.0'
+  date: '2022-04-18T19:19:35Z'
+  groups:
+    -
+      uuid: a571c0d144b14fd4a87a9d9b2aa9fcd6
+      name: Templates/Applications
+  templates:
+    -
+      uuid: 1fc51f845f4f499cae819f6e961e9e1e
+      template: 'CA SDM - Background'
+      name: 'CA SDM - Background'
+      groups:
+        -
+          name: Templates/Applications
+      items:
+        -
+          uuid: 4922ab20a20b4dfe9a5b540cc9560baf
+          name: 'Status do serviço "CA Service Desk Manager Servidor"'
+          key: 'service.info["CA Service Desk Manager Servidor"]'
+          history: 7d
+          trends: 90d
+          valuemap:
+            name: 'Windows service state'
+          tags:
+            -
+              tag: Application
+              value: 'CA SDM'
+          triggers:
+            -
+              uuid: 85f4584ae4364ff4b3f4137eda2eea54
+              expression: 'last(/CA SDM - Background/service.info["CA Service Desk Manager Servidor"])<>0'
+              name: 'Serviço "CA Service Desk Manager Servidor" não está em execução'
+              priority: HIGH
+      valuemaps:
+        -
+          uuid: acea977aed5a48c6a795342edd5135c8
+          name: 'Windows service state'
+          mappings:
+            -
+              value: '0'
+              newvalue: Running
+            -
+              value: '1'
+              newvalue: Paused
+            -
+              value: '3'
+              newvalue: 'Pause pending'
+            -
+              value: '4'
+              newvalue: 'Continue pending'
+            -
+              value: '5'
+              newvalue: 'Stop pending'
+            -
+              value: '6'
+              newvalue: Stopped
+            -
+              value: '7'
+              newvalue: Unknown
+            -
+              value: '255'
+              newvalue: 'No such service'
+            -
+              value: '2'
+              newvalue: 'Start pending'
