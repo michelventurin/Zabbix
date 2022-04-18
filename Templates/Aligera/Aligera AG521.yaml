@@ -1,6 +1,6 @@
 zabbix_export:
   version: '6.0'
-  date: '2022-04-18T20:27:40Z'
+  date: '2022-04-18T20:31:33Z'
   groups:
     -
       uuid: 36bff6c29af64692839d077febfc7079
@@ -38,6 +38,32 @@ zabbix_export:
           key: e1Alarms
           valuemap:
             name: 'E1 Alarms'
+          triggers:
+            -
+              uuid: 91278f8e2c3e46d9a1b4b0cd9d523b85
+              expression: 'last(/Aligera AG521/e1Alarms)=2'
+              name: 'E1 AIS Status'
+              priority: AVERAGE
+            -
+              uuid: 082c919568714e8cb56c9435c398f7d8
+              expression: 'last(/Aligera AG521/e1Alarms)=3'
+              name: 'E1 BFAE Status'
+              priority: AVERAGE
+            -
+              uuid: 6c5c8d780a0b4cf2995fedc3b8a24879
+              expression: 'last(/Aligera AG521/e1Alarms)=1'
+              name: 'E1 LOS Status'
+              priority: AVERAGE
+            -
+              uuid: 8d869971f25f432cbb6e3147f09d48a8
+              expression: 'last(/Aligera AG521/e1Alarms)=4'
+              name: 'E1 MFAE Status'
+              priority: AVERAGE
+            -
+              uuid: 4ad22aa861014e47ad0adf424b265063
+              expression: 'last(/Aligera AG521/e1Alarms)=5'
+              name: 'E1 RAI Status'
+              priority: AVERAGE
       valuemaps:
         -
           uuid: ec788ce0d1f0447abff8e55b74297e17
