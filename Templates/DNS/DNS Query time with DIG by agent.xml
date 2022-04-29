@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zabbix_export>
+    <version>5.0</version>
+    <date>2022-04-29T18:33:11Z</date>
+    <groups>
+        <group>
+            <name>Templates/Modules</name>
+        </group>
+    </groups>
+    <templates>
+        <template>
+            <template>DNS Query time with DIG by agent</template>
+            <name>DNS Query time with DIG by agent</name>
+            <description>Using DIG command</description>
+            <groups>
+                <group>
+                    <name>Templates/Modules</name>
+                </group>
+            </groups>
+            <items>
+                <item>
+                    <name>DNS response time</name>
+                    <key>system.run[&quot;dig @{$DNS_SERVER} {$DNS_TARGET} +noall +stats&quot;]</key>
+                    <units>ms</units>
+                    <preprocessing>
+                        <step>
+                            <type>REGEX</type>
+                            <params>\d+ msec
+\0</params>
+                        </step>
+                        <step>
+                            <type>REGEX</type>
+                            <params>\d+
+\0</params>
+                        </step>
+                    </preprocessing>
+                </item>
+            </items>
+            <macros>
+                <macro>
+                    <macro>{$DNS_SERVER}</macro>
+                </macro>
+                <macro>
+                    <macro>{$DNS_TARGET}</macro>
+                </macro>
+            </macros>
+        </template>
+    </templates>
+</zabbix_export>

@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zabbix_export>
+    <version>5.0</version>
+    <date>2022-04-29T18:32:55Z</date>
+    <groups>
+        <group>
+            <name>Templates/Applications</name>
+        </group>
+    </groups>
+    <templates>
+        <template>
+            <template>DNS Windows Performance Counters service by agent</template>
+            <name>DNS Windows Performance Counters service by agent</name>
+            <groups>
+                <group>
+                    <name>Templates/Applications</name>
+                </group>
+            </groups>
+            <applications>
+                <application>
+                    <name>Counters</name>
+                </application>
+                <application>
+                    <name>Memory</name>
+                </application>
+                <application>
+                    <name>Performance</name>
+                </application>
+            </applications>
+            <items>
+                <item>
+                    <name>Caching Memory</name>
+                    <key>perf_counter_en[&quot;\DNS\Caching Memory&quot;]</key>
+                    <units>B</units>
+                    <description>The total amount of system memory in use by the DNS server for caching.</description>
+                    <applications>
+                        <application>
+                            <name>Memory</name>
+                        </application>
+                        <application>
+                            <name>Performance</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>Database Node Memory</name>
+                    <key>perf_counter_en[&quot;\DNS\Database Node Memory&quot;]</key>
+                    <units>B</units>
+                    <description>The total amount of system memory in use by the DNS server on this node for database pages.</description>
+                    <applications>
+                        <application>
+                            <name>Memory</name>
+                        </application>
+                        <application>
+                            <name>Performance</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>Dynamic Update No Operation per sec</name>
+                    <key>perf_counter_en[&quot;\DNS\Dynamic Update NoOperation/sec&quot;]</key>
+                    <value_type>FLOAT</value_type>
+                    <description>The average number of No-operation/Empty dynamic update requests received by the DNS server in each second.</description>
+                    <applications>
+                        <application>
+                            <name>Counters</name>
+                        </application>
+                        <application>
+                            <name>Performance</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>Dynamic Update Received per sec</name>
+                    <key>perf_counter_en[&quot;\DNS\Dynamic Update Received/sec&quot;]</key>
+                    <value_type>FLOAT</value_type>
+                    <description>The average number of dynamic update requests received by the DNS server in each second.</description>
+                    <applications>
+                        <application>
+                            <name>Counters</name>
+                        </application>
+                        <application>
+                            <name>Performance</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>Dynamic Update Written to Database per sec</name>
+                    <key>perf_counter_en[&quot;\DNS\Dynamic Update Written to Database/sec&quot;]</key>
+                    <value_type>FLOAT</value_type>
+                    <description>The average number of dynamic updates written to the database by the DNS server in each second.</description>
+                    <applications>
+                        <application>
+                            <name>Counters</name>
+                        </application>
+                        <application>
+                            <name>Performance</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>Nbstat Memory</name>
+                    <key>perf_counter_en[&quot;\DNS\Nbstat Memory&quot;]</key>
+                    <units>B</units>
+                    <description>The total amount of system memory in use by the DNS server for Nbtstat.</description>
+                    <applications>
+                        <application>
+                            <name>Memory</name>
+                        </application>
+                        <application>
+                            <name>Performance</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>Record Flow Memory</name>
+                    <key>perf_counter_en[&quot;\DNS\Record Flow Memory&quot;]</key>
+                    <units>B</units>
+                    <description>The total amount of system memory in use by the DNS server for record flow.</description>
+                    <applications>
+                        <application>
+                            <name>Memory</name>
+                        </application>
+                        <application>
+                            <name>Performance</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>Recursive Queries per sec</name>
+                    <key>perf_counter_en[&quot;\DNS\Recursive Queries/sec&quot;]</key>
+                    <value_type>FLOAT</value_type>
+                    <description>The average number of recursive queries received by the DNS server in each second.</description>
+                    <applications>
+                        <application>
+                            <name>Counters</name>
+                        </application>
+                        <application>
+                            <name>Performance</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>Recursive Query Failure per sec</name>
+                    <key>perf_counter_en[&quot;\DNS\Recursive Query Failure/sec&quot;]</key>
+                    <value_type>FLOAT</value_type>
+                    <description>The average number of recursive query failures in each second.</description>
+                    <applications>
+                        <application>
+                            <name>Counters</name>
+                        </application>
+                        <application>
+                            <name>Performance</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>Recursive Time Out per sec</name>
+                    <key>perf_counter_en[&quot;\DNS\Recursive TimeOut/sec&quot;]</key>
+                    <value_type>FLOAT</value_type>
+                    <description>The average number of recursive query sending time-outs in each second.</description>
+                    <applications>
+                        <application>
+                            <name>Counters</name>
+                        </application>
+                        <application>
+                            <name>Performance</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>Secure Update Received per sec</name>
+                    <key>perf_counter_en[&quot;\DNS\Secure Update Received/sec&quot;]</key>
+                    <value_type>FLOAT</value_type>
+                    <description>The average number of secure update requests received by the DNS server per second.</description>
+                    <applications>
+                        <application>
+                            <name>Counters</name>
+                        </application>
+                        <application>
+                            <name>Performance</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>TCP Message Memory</name>
+                    <key>perf_counter_en[&quot;\DNS\TCP Message Memory&quot;]</key>
+                    <units>B</units>
+                    <description>The total amount of TCP message memory used by the DNS server.</description>
+                    <applications>
+                        <application>
+                            <name>Memory</name>
+                        </application>
+                        <application>
+                            <name>Performance</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>TCP Query Received per sec</name>
+                    <key>perf_counter_en[&quot;\DNS\TCP Query Received/sec&quot;]</key>
+                    <value_type>FLOAT</value_type>
+                    <description>The average number of TCP queries received by the DNS server per second.</description>
+                    <applications>
+                        <application>
+                            <name>Counters</name>
+                        </application>
+                        <application>
+                            <name>Performance</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>TCP Response Sent per sec</name>
+                    <key>perf_counter_en[&quot;\DNS\TCP Response Sent/sec&quot;]</key>
+                    <value_type>FLOAT</value_type>
+                    <description>The average number of TCP responses sent by the DNS server per second.</description>
+                    <applications>
+                        <application>
+                            <name>Counters</name>
+                        </application>
+                        <application>
+                            <name>Performance</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>Total Query Received per sec</name>
+                    <key>perf_counter_en[&quot;\DNS\Total Query Received/sec&quot;]</key>
+                    <value_type>FLOAT</value_type>
+                    <description>The average number of queries received by the DNS server in each second.</description>
+                    <applications>
+                        <application>
+                            <name>Counters</name>
+                        </application>
+                        <application>
+                            <name>Performance</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>Total Response Sent per sec</name>
+                    <key>perf_counter_en[&quot;\DNS\Total Response Sent/sec&quot;]</key>
+                    <value_type>FLOAT</value_type>
+                    <description>The average number of responses sent by the DNS server in each second.</description>
+                    <applications>
+                        <application>
+                            <name>Counters</name>
+                        </application>
+                        <application>
+                            <name>Performance</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>UDP Message Memory</name>
+                    <key>perf_counter_en[&quot;\DNS\UDP Message Memory&quot;]</key>
+                    <units>B</units>
+                    <description>The average number of responses sent by the DNS server in each second.</description>
+                    <applications>
+                        <application>
+                            <name>Memory</name>
+                        </application>
+                        <application>
+                            <name>Performance</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>UDP Query Received per sec</name>
+                    <key>perf_counter_en[&quot;\DNS\UDP Query Received/sec&quot;]</key>
+                    <value_type>FLOAT</value_type>
+                    <description>The average number of UDP queries received by the DNS server per second.</description>
+                    <applications>
+                        <application>
+                            <name>Counters</name>
+                        </application>
+                        <application>
+                            <name>Performance</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>UDP Response Sent per sec</name>
+                    <key>perf_counter_en[&quot;\DNS\UDP Response Sent/sec&quot;]</key>
+                    <value_type>FLOAT</value_type>
+                    <description>The average number of UDP responses sent by the DNS server per second.</description>
+                    <applications>
+                        <application>
+                            <name>Counters</name>
+                        </application>
+                        <application>
+                            <name>Performance</name>
+                        </application>
+                    </applications>
+                </item>
+            </items>
+        </template>
+    </templates>
+</zabbix_export>
