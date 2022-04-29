@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zabbix_export>
+    <version>5.0</version>
+    <date>2022-04-29T18:38:58Z</date>
+    <groups>
+        <group>
+            <name>Templates/Applications</name>
+        </group>
+        <group>
+            <name>Templates/Modules</name>
+        </group>
+    </groups>
+    <templates>
+        <template>
+            <template>Template App Rundeck</template>
+            <name>Template App Rundeck</name>
+            <templates>
+                <template>
+                    <name>Template Module Service PostgreSQL 12</name>
+                </template>
+                <template>
+                    <name>Template Module Service Rundeck</name>
+                </template>
+            </templates>
+            <groups>
+                <group>
+                    <name>Templates/Applications</name>
+                </group>
+            </groups>
+        </template>
+        <template>
+            <template>Template Module Service PostgreSQL 12</template>
+            <name>Template Module Service PostgreSQL 12</name>
+            <description>Monitoring PostgreSQL Service (postgresql-12)</description>
+            <groups>
+                <group>
+                    <name>Templates/Modules</name>
+                </group>
+            </groups>
+            <applications>
+                <application>
+                    <name>Service</name>
+                </application>
+            </applications>
+            <items>
+                <item>
+                    <name>PostgreSQL service status</name>
+                    <key>systemctl.status[postgresql-12]</key>
+                    <applications>
+                        <application>
+                            <name>Service</name>
+                        </application>
+                    </applications>
+                    <valuemap>
+                        <name>Linux service state</name>
+                    </valuemap>
+                    <preprocessing>
+                        <step>
+                            <type>STR_REPLACE</type>
+                            <params>active
+1</params>
+                        </step>
+                        <step>
+                            <type>STR_REPLACE</type>
+                            <params>inactive
+0</params>
+                        </step>
+                    </preprocessing>
+                    <triggers>
+                        <trigger>
+                            <expression>{last()}=0</expression>
+                            <name>PostgreSQL service is inactive</name>
+                            <priority>AVERAGE</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+            </items>
+        </template>
+        <template>
+            <template>Template Module Service Rundeck</template>
+            <name>Template Module Service Rundeck</name>
+            <description>Monitoring Rundeck Service (rundeckd)</description>
+            <groups>
+                <group>
+                    <name>Templates/Modules</name>
+                </group>
+            </groups>
+            <applications>
+                <application>
+                    <name>Service</name>
+                </application>
+            </applications>
+            <items>
+                <item>
+                    <name>Rundeck service status</name>
+                    <key>systemctl.status[rundeckd]</key>
+                    <applications>
+                        <application>
+                            <name>Service</name>
+                        </application>
+                    </applications>
+                    <valuemap>
+                        <name>Linux service state</name>
+                    </valuemap>
+                    <preprocessing>
+                        <step>
+                            <type>STR_REPLACE</type>
+                            <params>active
+1</params>
+                        </step>
+                        <step>
+                            <type>STR_REPLACE</type>
+                            <params>inactive
+0</params>
+                        </step>
+                    </preprocessing>
+                    <triggers>
+                        <trigger>
+                            <expression>{last()}=0</expression>
+                            <name>Rundeck service is inactive</name>
+                            <priority>AVERAGE</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+            </items>
+        </template>
+    </templates>
+    <value_maps>
+        <value_map>
+            <name>Linux service state</name>
+            <mappings>
+                <mapping>
+                    <value>0</value>
+                    <newvalue>Inactive</newvalue>
+                </mapping>
+                <mapping>
+                    <value>1</value>
+                    <newvalue>Active</newvalue>
+                </mapping>
+            </mappings>
+        </value_map>
+    </value_maps>
+</zabbix_export>
