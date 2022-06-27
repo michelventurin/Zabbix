@@ -1,0 +1,1388 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zabbix_export>
+    <version>5.0</version>
+    <date>2022-06-27T20:44:56Z</date>
+    <groups>
+        <group>
+            <name>Templates/Applications</name>
+        </group>
+    </groups>
+    <templates>
+        <template>
+            <template>Apache Ambari by HTTP</template>
+            <name>Apache Ambari by HTTP</name>
+            <groups>
+                <group>
+                    <name>Templates/Applications</name>
+                </group>
+            </groups>
+            <applications>
+                <application>
+                    <name>Zabbix raw</name>
+                </application>
+            </applications>
+            <discovery_rules>
+                <discovery_rule>
+                    <name>Cluster discovery</name>
+                    <type>HTTP_AGENT</type>
+                    <key>ambari.cluster.discovery</key>
+                    <delay>10m</delay>
+                    <authtype>BASIC</authtype>
+                    <username>{$USER}</username>
+                    <password>{$PASS}</password>
+                    <item_prototypes>
+                        <item_prototype>
+                            <name>Cluster {#CLUSTER}: get HDFS metrics</name>
+                            <type>HTTP_AGENT</type>
+                            <key>ambari.cluster.getHDFSMetrics[{#CLUSTER}]</key>
+                            <history>0</history>
+                            <trends>0</trends>
+                            <value_type>TEXT</value_type>
+                            <authtype>BASIC</authtype>
+                            <username>{$USER}</username>
+                            <password>{$PASS}</password>
+                            <applications>
+                                <application>
+                                    <name>Zabbix raw</name>
+                                </application>
+                            </applications>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>Cluster: {#CLUSTER}: HDFS</name>
+                                </application_prototype>
+                            </application_prototypes>
+                            <url>{$SCHEMA}://{HOST.IP}:{$PORT}{$PATH}/{#CLUSTER}/services/HDFS</url>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Cluster {#CLUSTER}: get MAPREDUCE2 metrics</name>
+                            <type>HTTP_AGENT</type>
+                            <key>ambari.cluster.getMAPREDUCE2Metrics[{#CLUSTER}]</key>
+                            <history>0</history>
+                            <trends>0</trends>
+                            <value_type>TEXT</value_type>
+                            <authtype>BASIC</authtype>
+                            <username>{$USER}</username>
+                            <password>{$PASS}</password>
+                            <applications>
+                                <application>
+                                    <name>Zabbix raw</name>
+                                </application>
+                            </applications>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>Cluster: {#CLUSTER}: MAPREDUCE2</name>
+                                </application_prototype>
+                            </application_prototypes>
+                            <url>{$SCHEMA}://{HOST.IP}:{$PORT}{$PATH}/{#CLUSTER}/services/MAPREDUCE2</url>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Cluster {#CLUSTER}: get Ambari metrics</name>
+                            <type>HTTP_AGENT</type>
+                            <key>ambari.cluster.getMetrics[{#CLUSTER}]</key>
+                            <history>0</history>
+                            <trends>0</trends>
+                            <value_type>TEXT</value_type>
+                            <authtype>BASIC</authtype>
+                            <username>{$USER}</username>
+                            <password>{$PASS}</password>
+                            <applications>
+                                <application>
+                                    <name>Zabbix raw</name>
+                                </application>
+                            </applications>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>Cluster: {#CLUSTER}</name>
+                                </application_prototype>
+                            </application_prototypes>
+                            <url>{$SCHEMA}://{HOST.IP}:{$PORT}{$PATH}/{#CLUSTER}</url>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Cluster {#CLUSTER}: get PIG metrics</name>
+                            <type>HTTP_AGENT</type>
+                            <key>ambari.cluster.getPIGMetrics[{#CLUSTER}]</key>
+                            <history>0</history>
+                            <trends>0</trends>
+                            <value_type>TEXT</value_type>
+                            <authtype>BASIC</authtype>
+                            <username>{$USER}</username>
+                            <password>{$PASS}</password>
+                            <applications>
+                                <application>
+                                    <name>Zabbix raw</name>
+                                </application>
+                            </applications>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>Cluster: {#CLUSTER}: PIG</name>
+                                </application_prototype>
+                            </application_prototypes>
+                            <url>{$SCHEMA}://{HOST.IP}:{$PORT}{$PATH}/{#CLUSTER}/services/PIG</url>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Cluster {#CLUSTER}: get RANGER metrics</name>
+                            <type>HTTP_AGENT</type>
+                            <key>ambari.cluster.getRANGERMetrics[{#CLUSTER}]</key>
+                            <history>0</history>
+                            <trends>0</trends>
+                            <value_type>TEXT</value_type>
+                            <authtype>BASIC</authtype>
+                            <username>{$USER}</username>
+                            <password>{$PASS}</password>
+                            <applications>
+                                <application>
+                                    <name>Zabbix raw</name>
+                                </application>
+                            </applications>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>Cluster: {#CLUSTER}: RANGER</name>
+                                </application_prototype>
+                            </application_prototypes>
+                            <url>{$SCHEMA}://{HOST.IP}:{$PORT}{$PATH}/{#CLUSTER}/services/RANGER</url>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Cluster {#CLUSTER}: get Solr metrics</name>
+                            <type>HTTP_AGENT</type>
+                            <key>ambari.cluster.getSolrMetrics[{#CLUSTER}]</key>
+                            <history>0</history>
+                            <trends>0</trends>
+                            <value_type>TEXT</value_type>
+                            <authtype>BASIC</authtype>
+                            <username>{$USER}</username>
+                            <password>{$PASS}</password>
+                            <applications>
+                                <application>
+                                    <name>Zabbix raw</name>
+                                </application>
+                            </applications>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>Cluster: {#CLUSTER}: Solr</name>
+                                </application_prototype>
+                            </application_prototypes>
+                            <url>{$SCHEMA}://{HOST.IP}:{$PORT}{$PATH}/{#CLUSTER}/services/AMBARI_INFRA_SOLR</url>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Cluster {#CLUSTER}: get SPARK2 metrics</name>
+                            <type>HTTP_AGENT</type>
+                            <key>ambari.cluster.getSPARK2Metrics[{#CLUSTER}]</key>
+                            <history>0</history>
+                            <trends>0</trends>
+                            <value_type>TEXT</value_type>
+                            <authtype>BASIC</authtype>
+                            <username>{$USER}</username>
+                            <password>{$PASS}</password>
+                            <applications>
+                                <application>
+                                    <name>Zabbix raw</name>
+                                </application>
+                            </applications>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>Cluster: {#CLUSTER}: SPARK2</name>
+                                </application_prototype>
+                            </application_prototypes>
+                            <url>{$SCHEMA}://{HOST.IP}:{$PORT}{$PATH}/{#CLUSTER}/services/SPARK2</url>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Cluster {#CLUSTER}: get SQOOP metrics</name>
+                            <type>HTTP_AGENT</type>
+                            <key>ambari.cluster.getSQOOPMetrics[{#CLUSTER}]</key>
+                            <history>0</history>
+                            <trends>0</trends>
+                            <value_type>TEXT</value_type>
+                            <authtype>BASIC</authtype>
+                            <username>{$USER}</username>
+                            <password>{$PASS}</password>
+                            <applications>
+                                <application>
+                                    <name>Zabbix raw</name>
+                                </application>
+                            </applications>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>Cluster: {#CLUSTER}: SQOOP</name>
+                                </application_prototype>
+                            </application_prototypes>
+                            <url>{$SCHEMA}://{HOST.IP}:{$PORT}{$PATH}/{#CLUSTER}/services/SQOOP</url>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Cluster {#CLUSTER}: get TEZ metrics</name>
+                            <type>HTTP_AGENT</type>
+                            <key>ambari.cluster.getTEZMetrics[{#CLUSTER}]</key>
+                            <history>0</history>
+                            <trends>0</trends>
+                            <value_type>TEXT</value_type>
+                            <authtype>BASIC</authtype>
+                            <username>{$USER}</username>
+                            <password>{$PASS}</password>
+                            <applications>
+                                <application>
+                                    <name>Zabbix raw</name>
+                                </application>
+                            </applications>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>Cluster: {#CLUSTER}: TEZ</name>
+                                </application_prototype>
+                            </application_prototypes>
+                            <url>{$SCHEMA}://{HOST.IP}:{$PORT}{$PATH}/{#CLUSTER}/services/TEZ</url>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Cluster {#CLUSTER}: get YARN metrics</name>
+                            <type>HTTP_AGENT</type>
+                            <key>ambari.cluster.getYARNMetrics[{#CLUSTER}]</key>
+                            <history>0</history>
+                            <trends>0</trends>
+                            <value_type>TEXT</value_type>
+                            <authtype>BASIC</authtype>
+                            <username>{$USER}</username>
+                            <password>{$PASS}</password>
+                            <applications>
+                                <application>
+                                    <name>Zabbix raw</name>
+                                </application>
+                            </applications>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>Cluster: {#CLUSTER}: YARN</name>
+                                </application_prototype>
+                            </application_prototypes>
+                            <url>{$SCHEMA}://{HOST.IP}:{$PORT}{$PATH}/{#CLUSTER}/services/YARN</url>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Cluster {#CLUSTER}: get ZOOKEEPER metrics</name>
+                            <type>HTTP_AGENT</type>
+                            <key>ambari.cluster.getZOOKEEPERMetrics[{#CLUSTER}]</key>
+                            <history>0</history>
+                            <trends>0</trends>
+                            <value_type>TEXT</value_type>
+                            <authtype>BASIC</authtype>
+                            <username>{$USER}</username>
+                            <password>{$PASS}</password>
+                            <applications>
+                                <application>
+                                    <name>Zabbix raw</name>
+                                </application>
+                            </applications>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>Cluster: {#CLUSTER}: ZOOKEEPER</name>
+                                </application_prototype>
+                            </application_prototypes>
+                            <url>{$SCHEMA}://{HOST.IP}:{$PORT}{$PATH}/{#CLUSTER}/services/ZOOKEEPER</url>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Cluster {#CLUSTER}: hosts in healthy state</name>
+                            <type>DEPENDENT</type>
+                            <key>ambari.hostsHealthyState[{#CLUSTER}]</key>
+                            <delay>0</delay>
+                            <history>7d</history>
+                            <trends>200d</trends>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>Cluster: {#CLUSTER}</name>
+                                </application_prototype>
+                            </application_prototypes>
+                            <preprocessing>
+                                <step>
+                                    <type>JSONPATH</type>
+                                    <params>$.Clusters.health_report.['Host/host_state/HEALTHY']</params>
+                                </step>
+                            </preprocessing>
+                            <master_item>
+                                <key>ambari.cluster.getMetrics[{#CLUSTER}]</key>
+                            </master_item>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Cluster {#CLUSTER}: hosts in healthy status</name>
+                            <type>DEPENDENT</type>
+                            <key>ambari.hostsHealthyStatus[{#CLUSTER}]</key>
+                            <delay>0</delay>
+                            <history>7d</history>
+                            <trends>200d</trends>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>Cluster: {#CLUSTER}</name>
+                                </application_prototype>
+                            </application_prototypes>
+                            <preprocessing>
+                                <step>
+                                    <type>JSONPATH</type>
+                                    <params>$.Clusters.health_report.['Host/host_status/HEALTHY']</params>
+                                </step>
+                            </preprocessing>
+                            <master_item>
+                                <key>ambari.cluster.getMetrics[{#CLUSTER}]</key>
+                            </master_item>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Cluster {#CLUSTER}: hosts with heartbeat lost state</name>
+                            <type>DEPENDENT</type>
+                            <key>ambari.hostsHeartbeatLostState[{#CLUSTER}]</key>
+                            <delay>0</delay>
+                            <history>7d</history>
+                            <trends>200d</trends>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>Cluster: {#CLUSTER}</name>
+                                </application_prototype>
+                            </application_prototypes>
+                            <preprocessing>
+                                <step>
+                                    <type>JSONPATH</type>
+                                    <params>$.Clusters.health_report.['Host/host_state/HEARTBEAT_LOST']</params>
+                                </step>
+                            </preprocessing>
+                            <master_item>
+                                <key>ambari.cluster.getMetrics[{#CLUSTER}]</key>
+                            </master_item>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <expression>{last(#5)}&gt;=1</expression>
+                                    <name>Cluster {#CLUSTER}: {ITEM.LASTVALUE} hosts in heartbeat lost state</name>
+                                    <priority>AVERAGE</priority>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Cluster {#CLUSTER}: hosts in maintenance state</name>
+                            <type>DEPENDENT</type>
+                            <key>ambari.hostsMaintenanceState[{#CLUSTER}]</key>
+                            <delay>0</delay>
+                            <history>7d</history>
+                            <trends>200d</trends>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>Cluster: {#CLUSTER}</name>
+                                </application_prototype>
+                            </application_prototypes>
+                            <preprocessing>
+                                <step>
+                                    <type>JSONPATH</type>
+                                    <params>$.Clusters.health_report.['Host/maintenance_state']</params>
+                                </step>
+                            </preprocessing>
+                            <master_item>
+                                <key>ambari.cluster.getMetrics[{#CLUSTER}]</key>
+                            </master_item>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <expression>{last(#5)}&gt;=1</expression>
+                                    <name>Cluster {#CLUSTER}: {ITEM.LASTVALUE} hosts in maintenance state</name>
+                                    <priority>INFO</priority>
+                                    <dependencies>
+                                        <dependency>
+                                            <name>Cluster {#CLUSTER}: HDFS service has {ITEM.LASTVALUE} maintenance alert(s)</name>
+                                            <expression>{Apache Ambari by HTTP:ambari.services.HDFSMaintAlert[{#CLUSTER}].last(#5)}&gt;=1</expression>
+                                        </dependency>
+                                        <dependency>
+                                            <name>Cluster {#CLUSTER}: MAPREDUCE2 service has {ITEM.LASTVALUE} maintenance alert(s)</name>
+                                            <expression>{Apache Ambari by HTTP:ambari.services.MAPREDUCE2MaintAlert[{#CLUSTER}].last(#5)}&gt;=1</expression>
+                                        </dependency>
+                                        <dependency>
+                                            <name>Cluster {#CLUSTER}: PIG service has {ITEM.LASTVALUE} maintenance alert(s)</name>
+                                            <expression>{Apache Ambari by HTTP:ambari.services.PIGMaintAlert[{#CLUSTER}].last(#5)}&gt;=1</expression>
+                                        </dependency>
+                                        <dependency>
+                                            <name>Cluster {#CLUSTER}: RANGER service has {ITEM.LASTVALUE} maintenance alert(s)</name>
+                                            <expression>{Apache Ambari by HTTP:ambari.services.RANGERMaintAlert[{#CLUSTER}].last(#5)}&gt;=1</expression>
+                                        </dependency>
+                                        <dependency>
+                                            <name>Cluster {#CLUSTER}: Solr service has {ITEM.LASTVALUE} maintenance alert(s)</name>
+                                            <expression>{Apache Ambari by HTTP:ambari.services.SolrMaintAlert[{#CLUSTER}].last(#5)}&gt;=1</expression>
+                                        </dependency>
+                                        <dependency>
+                                            <name>Cluster {#CLUSTER}: SPARK2 service has {ITEM.LASTVALUE} maintenance alert(s)</name>
+                                            <expression>{Apache Ambari by HTTP:ambari.services.SPARK2MaintAlert[{#CLUSTER}].last(#5)}&gt;=1</expression>
+                                        </dependency>
+                                        <dependency>
+                                            <name>Cluster {#CLUSTER}: SQOOP service has {ITEM.LASTVALUE} maintenance alert(s)</name>
+                                            <expression>{Apache Ambari by HTTP:ambari.services.SQOOPMaintAlert[{#CLUSTER}].last(#5)}&gt;=1</expression>
+                                        </dependency>
+                                        <dependency>
+                                            <name>Cluster {#CLUSTER}: TEZ service has {ITEM.LASTVALUE} maintenance alert(s)</name>
+                                            <expression>{Apache Ambari by HTTP:ambari.services.TEZMaintAlert[{#CLUSTER}].last(#5)}&gt;=1</expression>
+                                        </dependency>
+                                        <dependency>
+                                            <name>Cluster {#CLUSTER}: YARN service has {ITEM.LASTVALUE} maintenance alert(s)</name>
+                                            <expression>{Apache Ambari by HTTP:ambari.services.YARNMaintAlert[{#CLUSTER}].last(#5)}&gt;=1</expression>
+                                        </dependency>
+                                        <dependency>
+                                            <name>Cluster {#CLUSTER}: ZOOKEEPER service has {ITEM.LASTVALUE} maintenance alert(s)</name>
+                                            <expression>{Apache Ambari by HTTP:ambari.services.ZOOKEEPERMaintAlert[{#CLUSTER}].last(#5)}&gt;=1</expression>
+                                        </dependency>
+                                    </dependencies>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Cluster {#CLUSTER}: hosts in unhealthy state</name>
+                            <type>DEPENDENT</type>
+                            <key>ambari.hostsUnhealthyState[{#CLUSTER}]</key>
+                            <delay>0</delay>
+                            <history>7d</history>
+                            <trends>200d</trends>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>Cluster: {#CLUSTER}</name>
+                                </application_prototype>
+                            </application_prototypes>
+                            <preprocessing>
+                                <step>
+                                    <type>JSONPATH</type>
+                                    <params>$.Clusters.health_report.['Host/host_state/UNHEALTHY']</params>
+                                </step>
+                            </preprocessing>
+                            <master_item>
+                                <key>ambari.cluster.getMetrics[{#CLUSTER}]</key>
+                            </master_item>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <expression>{last(#5)}&gt;=1</expression>
+                                    <name>Cluster {#CLUSTER}: {ITEM.LASTVALUE} hosts in unhealthy state</name>
+                                    <priority>AVERAGE</priority>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Cluster {#CLUSTER}: hosts in unhealthy status</name>
+                            <type>DEPENDENT</type>
+                            <key>ambari.hostsUnhealthyStatus[{#CLUSTER}]</key>
+                            <delay>0</delay>
+                            <history>7d</history>
+                            <trends>200d</trends>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>Cluster: {#CLUSTER}</name>
+                                </application_prototype>
+                            </application_prototypes>
+                            <preprocessing>
+                                <step>
+                                    <type>JSONPATH</type>
+                                    <params>$.Clusters.health_report.['Host/host_status/UNHEALTHY']</params>
+                                </step>
+                            </preprocessing>
+                            <master_item>
+                                <key>ambari.cluster.getMetrics[{#CLUSTER}]</key>
+                            </master_item>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <expression>{last(#5)}&gt;=1</expression>
+                                    <name>Cluster {#CLUSTER}: {ITEM.LASTVALUE} hosts in unhealthy status</name>
+                                    <priority>AVERAGE</priority>
+                                    <dependencies>
+                                        <dependency>
+                                            <name>Cluster {#CLUSTER}: {ITEM.LASTVALUE} hosts in unhealthy state</name>
+                                            <expression>{Apache Ambari by HTTP:ambari.hostsUnhealthyState[{#CLUSTER}].last(#5)}&gt;=1</expression>
+                                        </dependency>
+                                    </dependencies>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Cluster {#CLUSTER}: hosts in unknown status</name>
+                            <type>DEPENDENT</type>
+                            <key>ambari.hostsUnknownStatus[{#CLUSTER}]</key>
+                            <delay>0</delay>
+                            <history>7d</history>
+                            <trends>200d</trends>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>Cluster: {#CLUSTER}</name>
+                                </application_prototype>
+                            </application_prototypes>
+                            <preprocessing>
+                                <step>
+                                    <type>JSONPATH</type>
+                                    <params>$.Clusters.health_report.['Host/host_status/UNKNOWN']</params>
+                                </step>
+                            </preprocessing>
+                            <master_item>
+                                <key>ambari.cluster.getMetrics[{#CLUSTER}]</key>
+                            </master_item>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <expression>{last(#5)}&gt;=1</expression>
+                                    <name>Cluster {#CLUSTER}: {ITEM.LASTVALUE} hosts in unknown state</name>
+                                    <priority>AVERAGE</priority>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Cluster {#CLUSTER}: HDFS critical alerts</name>
+                            <type>DEPENDENT</type>
+                            <key>ambari.services.HDFSCritAlert[{#CLUSTER}]</key>
+                            <delay>0</delay>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>Cluster: {#CLUSTER}: HDFS</name>
+                                </application_prototype>
+                            </application_prototypes>
+                            <preprocessing>
+                                <step>
+                                    <type>JSONPATH</type>
+                                    <params>$.['alerts_summary'].CRITICAL</params>
+                                </step>
+                            </preprocessing>
+                            <master_item>
+                                <key>ambari.cluster.getHDFSMetrics[{#CLUSTER}]</key>
+                            </master_item>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <expression>{last(#5)}&gt;=1</expression>
+                                    <name>Cluster {#CLUSTER}: HDFS service has {ITEM.LASTVALUE} critical alert(s)</name>
+                                    <priority>AVERAGE</priority>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Cluster {#CLUSTER}: HDFS maintenance alerts</name>
+                            <type>DEPENDENT</type>
+                            <key>ambari.services.HDFSMaintAlert[{#CLUSTER}]</key>
+                            <delay>0</delay>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>Cluster: {#CLUSTER}: HDFS</name>
+                                </application_prototype>
+                            </application_prototypes>
+                            <preprocessing>
+                                <step>
+                                    <type>JSONPATH</type>
+                                    <params>$.['alerts_summary'].MAINTENANCE</params>
+                                </step>
+                            </preprocessing>
+                            <master_item>
+                                <key>ambari.cluster.getHDFSMetrics[{#CLUSTER}]</key>
+                            </master_item>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <expression>{last(#5)}&gt;=1</expression>
+                                    <name>Cluster {#CLUSTER}: HDFS service has {ITEM.LASTVALUE} maintenance alert(s)</name>
+                                    <priority>AVERAGE</priority>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Cluster {#CLUSTER}: HDFS warning alerts</name>
+                            <type>DEPENDENT</type>
+                            <key>ambari.services.HDFSWarnAlert[{#CLUSTER}]</key>
+                            <delay>0</delay>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>Cluster: {#CLUSTER}: HDFS</name>
+                                </application_prototype>
+                            </application_prototypes>
+                            <preprocessing>
+                                <step>
+                                    <type>JSONPATH</type>
+                                    <params>$.['alerts_summary'].WARNING</params>
+                                </step>
+                            </preprocessing>
+                            <master_item>
+                                <key>ambari.cluster.getHDFSMetrics[{#CLUSTER}]</key>
+                            </master_item>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <expression>{last(#5)}&gt;=1</expression>
+                                    <name>Cluster {#CLUSTER}: HDFS service has {ITEM.LASTVALUE} warning alert(s)</name>
+                                    <priority>AVERAGE</priority>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Cluster {#CLUSTER}: MAPREDUCE2 critical alerts</name>
+                            <type>DEPENDENT</type>
+                            <key>ambari.services.MAPREDUCE2CritAlert[{#CLUSTER}]</key>
+                            <delay>0</delay>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>Cluster: {#CLUSTER}: MAPREDUCE2</name>
+                                </application_prototype>
+                            </application_prototypes>
+                            <preprocessing>
+                                <step>
+                                    <type>JSONPATH</type>
+                                    <params>$.['alerts_summary'].CRITICAL</params>
+                                </step>
+                            </preprocessing>
+                            <master_item>
+                                <key>ambari.cluster.getMAPREDUCE2Metrics[{#CLUSTER}]</key>
+                            </master_item>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <expression>{last(#5)}&gt;=1</expression>
+                                    <name>Cluster {#CLUSTER}: MAPREDUCE2 service has {ITEM.LASTVALUE} critical alert(s)</name>
+                                    <priority>AVERAGE</priority>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Cluster {#CLUSTER}: MAPREDUCE2 maintenance alerts</name>
+                            <type>DEPENDENT</type>
+                            <key>ambari.services.MAPREDUCE2MaintAlert[{#CLUSTER}]</key>
+                            <delay>0</delay>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>Cluster: {#CLUSTER}: MAPREDUCE2</name>
+                                </application_prototype>
+                            </application_prototypes>
+                            <preprocessing>
+                                <step>
+                                    <type>JSONPATH</type>
+                                    <params>$.['alerts_summary'].MAINTENANCE</params>
+                                </step>
+                            </preprocessing>
+                            <master_item>
+                                <key>ambari.cluster.getMAPREDUCE2Metrics[{#CLUSTER}]</key>
+                            </master_item>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <expression>{last(#5)}&gt;=1</expression>
+                                    <name>Cluster {#CLUSTER}: MAPREDUCE2 service has {ITEM.LASTVALUE} maintenance alert(s)</name>
+                                    <priority>AVERAGE</priority>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Cluster {#CLUSTER}: MAPREDUCE2 warning alerts</name>
+                            <type>DEPENDENT</type>
+                            <key>ambari.services.MAPREDUCE2WarnAlert[{#CLUSTER}]</key>
+                            <delay>0</delay>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>Cluster: {#CLUSTER}: MAPREDUCE2</name>
+                                </application_prototype>
+                            </application_prototypes>
+                            <preprocessing>
+                                <step>
+                                    <type>JSONPATH</type>
+                                    <params>$.['alerts_summary'].WARNING</params>
+                                </step>
+                            </preprocessing>
+                            <master_item>
+                                <key>ambari.cluster.getMAPREDUCE2Metrics[{#CLUSTER}]</key>
+                            </master_item>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <expression>{last(#5)}&gt;=1</expression>
+                                    <name>Cluster {#CLUSTER}: MAPREDUCE2 service has {ITEM.LASTVALUE} warning alert(s)</name>
+                                    <priority>AVERAGE</priority>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Cluster {#CLUSTER}: PIG critical alerts</name>
+                            <type>DEPENDENT</type>
+                            <key>ambari.services.PIGCritAlert[{#CLUSTER}]</key>
+                            <delay>0</delay>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>Cluster: {#CLUSTER}: PIG</name>
+                                </application_prototype>
+                            </application_prototypes>
+                            <preprocessing>
+                                <step>
+                                    <type>JSONPATH</type>
+                                    <params>$.['alerts_summary'].CRITICAL</params>
+                                </step>
+                            </preprocessing>
+                            <master_item>
+                                <key>ambari.cluster.getPIGMetrics[{#CLUSTER}]</key>
+                            </master_item>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <expression>{last(#5)}&gt;=1</expression>
+                                    <name>Cluster {#CLUSTER}: PIG service has {ITEM.LASTVALUE} critical alert(s)</name>
+                                    <priority>AVERAGE</priority>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Cluster {#CLUSTER}: PIG maintenance alerts</name>
+                            <type>DEPENDENT</type>
+                            <key>ambari.services.PIGMaintAlert[{#CLUSTER}]</key>
+                            <delay>0</delay>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>Cluster: {#CLUSTER}: PIG</name>
+                                </application_prototype>
+                            </application_prototypes>
+                            <preprocessing>
+                                <step>
+                                    <type>JSONPATH</type>
+                                    <params>$.['alerts_summary'].MAINTENANCE</params>
+                                </step>
+                            </preprocessing>
+                            <master_item>
+                                <key>ambari.cluster.getPIGMetrics[{#CLUSTER}]</key>
+                            </master_item>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <expression>{last(#5)}&gt;=1</expression>
+                                    <name>Cluster {#CLUSTER}: PIG service has {ITEM.LASTVALUE} maintenance alert(s)</name>
+                                    <priority>AVERAGE</priority>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Cluster {#CLUSTER}: PIG warning alerts</name>
+                            <type>DEPENDENT</type>
+                            <key>ambari.services.PIGWarnAlert[{#CLUSTER}]</key>
+                            <delay>0</delay>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>Cluster: {#CLUSTER}: PIG</name>
+                                </application_prototype>
+                            </application_prototypes>
+                            <preprocessing>
+                                <step>
+                                    <type>JSONPATH</type>
+                                    <params>$.['alerts_summary'].WARNING</params>
+                                </step>
+                            </preprocessing>
+                            <master_item>
+                                <key>ambari.cluster.getPIGMetrics[{#CLUSTER}]</key>
+                            </master_item>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <expression>{last(#5)}&gt;=1</expression>
+                                    <name>Cluster {#CLUSTER}: PIG service has {ITEM.LASTVALUE} warning alert(s)</name>
+                                    <priority>AVERAGE</priority>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Cluster {#CLUSTER}: RANGER critical alerts</name>
+                            <type>DEPENDENT</type>
+                            <key>ambari.services.RANGERCritAlert[{#CLUSTER}]</key>
+                            <delay>0</delay>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>Cluster: {#CLUSTER}: RANGER</name>
+                                </application_prototype>
+                            </application_prototypes>
+                            <preprocessing>
+                                <step>
+                                    <type>JSONPATH</type>
+                                    <params>$.['alerts_summary'].CRITICAL</params>
+                                </step>
+                            </preprocessing>
+                            <master_item>
+                                <key>ambari.cluster.getRANGERMetrics[{#CLUSTER}]</key>
+                            </master_item>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <expression>{last(#5)}&gt;=1</expression>
+                                    <name>Cluster {#CLUSTER}: RANGER service has {ITEM.LASTVALUE} critical alert(s)</name>
+                                    <priority>AVERAGE</priority>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Cluster {#CLUSTER}: RANGER maintenance alerts</name>
+                            <type>DEPENDENT</type>
+                            <key>ambari.services.RANGERMaintAlert[{#CLUSTER}]</key>
+                            <delay>0</delay>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>Cluster: {#CLUSTER}: RANGER</name>
+                                </application_prototype>
+                            </application_prototypes>
+                            <preprocessing>
+                                <step>
+                                    <type>JSONPATH</type>
+                                    <params>$.['alerts_summary'].MAINTENANCE</params>
+                                </step>
+                            </preprocessing>
+                            <master_item>
+                                <key>ambari.cluster.getRANGERMetrics[{#CLUSTER}]</key>
+                            </master_item>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <expression>{last(#5)}&gt;=1</expression>
+                                    <name>Cluster {#CLUSTER}: RANGER service has {ITEM.LASTVALUE} maintenance alert(s)</name>
+                                    <priority>AVERAGE</priority>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Cluster {#CLUSTER}: RANGER warning alerts</name>
+                            <type>DEPENDENT</type>
+                            <key>ambari.services.RANGERWarnAlert[{#CLUSTER}]</key>
+                            <delay>0</delay>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>Cluster: {#CLUSTER}: RANGER</name>
+                                </application_prototype>
+                            </application_prototypes>
+                            <preprocessing>
+                                <step>
+                                    <type>JSONPATH</type>
+                                    <params>$.['alerts_summary'].WARNING</params>
+                                </step>
+                            </preprocessing>
+                            <master_item>
+                                <key>ambari.cluster.getRANGERMetrics[{#CLUSTER}]</key>
+                            </master_item>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <expression>{last(#5)}&gt;=1</expression>
+                                    <name>Cluster {#CLUSTER}: RANGER service has {ITEM.LASTVALUE} warning alert(s)</name>
+                                    <priority>AVERAGE</priority>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Cluster {#CLUSTER}: Solr critical alerts</name>
+                            <type>DEPENDENT</type>
+                            <key>ambari.services.SolrCritAlert[{#CLUSTER}]</key>
+                            <delay>0</delay>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>Cluster: {#CLUSTER}: Solr</name>
+                                </application_prototype>
+                            </application_prototypes>
+                            <preprocessing>
+                                <step>
+                                    <type>JSONPATH</type>
+                                    <params>$.['alerts_summary'].CRITICAL</params>
+                                </step>
+                            </preprocessing>
+                            <master_item>
+                                <key>ambari.cluster.getSolrMetrics[{#CLUSTER}]</key>
+                            </master_item>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <expression>{last(#5)}&gt;=1</expression>
+                                    <name>Cluster {#CLUSTER}: Solr service has {ITEM.LASTVALUE} critical alert(s)</name>
+                                    <priority>AVERAGE</priority>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Cluster {#CLUSTER}: Solr maintenance alerts</name>
+                            <type>DEPENDENT</type>
+                            <key>ambari.services.SolrMaintAlert[{#CLUSTER}]</key>
+                            <delay>0</delay>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>Cluster: {#CLUSTER}: Solr</name>
+                                </application_prototype>
+                            </application_prototypes>
+                            <preprocessing>
+                                <step>
+                                    <type>JSONPATH</type>
+                                    <params>$.['alerts_summary'].MAINTENANCE</params>
+                                </step>
+                            </preprocessing>
+                            <master_item>
+                                <key>ambari.cluster.getSolrMetrics[{#CLUSTER}]</key>
+                            </master_item>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <expression>{last(#5)}&gt;=1</expression>
+                                    <name>Cluster {#CLUSTER}: Solr service has {ITEM.LASTVALUE} maintenance alert(s)</name>
+                                    <priority>AVERAGE</priority>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Cluster {#CLUSTER}: Solr warning alerts</name>
+                            <type>DEPENDENT</type>
+                            <key>ambari.services.SolrWarnAlert[{#CLUSTER}]</key>
+                            <delay>0</delay>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>Cluster: {#CLUSTER}: Solr</name>
+                                </application_prototype>
+                            </application_prototypes>
+                            <preprocessing>
+                                <step>
+                                    <type>JSONPATH</type>
+                                    <params>$.['alerts_summary'].WARNING</params>
+                                </step>
+                            </preprocessing>
+                            <master_item>
+                                <key>ambari.cluster.getSolrMetrics[{#CLUSTER}]</key>
+                            </master_item>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <expression>{last(#5)}&gt;=1</expression>
+                                    <name>Cluster {#CLUSTER}: Solr service has {ITEM.LASTVALUE} warning alert(s)</name>
+                                    <priority>AVERAGE</priority>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Cluster {#CLUSTER}: SPARK2 critical alerts</name>
+                            <type>DEPENDENT</type>
+                            <key>ambari.services.SPARK2CritAlert[{#CLUSTER}]</key>
+                            <delay>0</delay>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>Cluster: {#CLUSTER}: SPARK2</name>
+                                </application_prototype>
+                            </application_prototypes>
+                            <preprocessing>
+                                <step>
+                                    <type>JSONPATH</type>
+                                    <params>$.['alerts_summary'].CRITICAL</params>
+                                </step>
+                            </preprocessing>
+                            <master_item>
+                                <key>ambari.cluster.getSPARK2Metrics[{#CLUSTER}]</key>
+                            </master_item>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <expression>{last(#5)}&gt;=1</expression>
+                                    <name>Cluster {#CLUSTER}: SPARK2 service has {ITEM.LASTVALUE} critical alert(s)</name>
+                                    <priority>AVERAGE</priority>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Cluster {#CLUSTER}: SPARK2 maintenance alerts</name>
+                            <type>DEPENDENT</type>
+                            <key>ambari.services.SPARK2MaintAlert[{#CLUSTER}]</key>
+                            <delay>0</delay>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>Cluster: {#CLUSTER}: SPARK2</name>
+                                </application_prototype>
+                            </application_prototypes>
+                            <preprocessing>
+                                <step>
+                                    <type>JSONPATH</type>
+                                    <params>$.['alerts_summary'].MAINTENANCE</params>
+                                </step>
+                            </preprocessing>
+                            <master_item>
+                                <key>ambari.cluster.getSPARK2Metrics[{#CLUSTER}]</key>
+                            </master_item>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <expression>{last(#5)}&gt;=1</expression>
+                                    <name>Cluster {#CLUSTER}: SPARK2 service has {ITEM.LASTVALUE} maintenance alert(s)</name>
+                                    <priority>AVERAGE</priority>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Cluster {#CLUSTER}: SPARK2 warning alerts</name>
+                            <type>DEPENDENT</type>
+                            <key>ambari.services.SPARK2WarnAlert[{#CLUSTER}]</key>
+                            <delay>0</delay>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>Cluster: {#CLUSTER}: SPARK2</name>
+                                </application_prototype>
+                            </application_prototypes>
+                            <preprocessing>
+                                <step>
+                                    <type>JSONPATH</type>
+                                    <params>$.['alerts_summary'].WARNING</params>
+                                </step>
+                            </preprocessing>
+                            <master_item>
+                                <key>ambari.cluster.getSPARK2Metrics[{#CLUSTER}]</key>
+                            </master_item>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <expression>{last(#5)}&gt;=1</expression>
+                                    <name>Cluster {#CLUSTER}: SPARK2 service has {ITEM.LASTVALUE} warning alert(s)</name>
+                                    <priority>AVERAGE</priority>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Cluster {#CLUSTER}: SQOOP critical alerts</name>
+                            <type>DEPENDENT</type>
+                            <key>ambari.services.SQOOPCritAlert[{#CLUSTER}]</key>
+                            <delay>0</delay>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>Cluster: {#CLUSTER}: SQOOP</name>
+                                </application_prototype>
+                            </application_prototypes>
+                            <preprocessing>
+                                <step>
+                                    <type>JSONPATH</type>
+                                    <params>$.['alerts_summary'].CRITICAL</params>
+                                </step>
+                            </preprocessing>
+                            <master_item>
+                                <key>ambari.cluster.getSQOOPMetrics[{#CLUSTER}]</key>
+                            </master_item>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <expression>{last(#5)}&gt;=1</expression>
+                                    <name>Cluster {#CLUSTER}: SQOOP service has {ITEM.LASTVALUE} critical alert(s)</name>
+                                    <priority>AVERAGE</priority>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Cluster {#CLUSTER}: SQOOP maintenance alerts</name>
+                            <type>DEPENDENT</type>
+                            <key>ambari.services.SQOOPMaintAlert[{#CLUSTER}]</key>
+                            <delay>0</delay>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>Cluster: {#CLUSTER}: SQOOP</name>
+                                </application_prototype>
+                            </application_prototypes>
+                            <preprocessing>
+                                <step>
+                                    <type>JSONPATH</type>
+                                    <params>$.['alerts_summary'].MAINTENANCE</params>
+                                </step>
+                            </preprocessing>
+                            <master_item>
+                                <key>ambari.cluster.getSQOOPMetrics[{#CLUSTER}]</key>
+                            </master_item>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <expression>{last(#5)}&gt;=1</expression>
+                                    <name>Cluster {#CLUSTER}: SQOOP service has {ITEM.LASTVALUE} maintenance alert(s)</name>
+                                    <priority>AVERAGE</priority>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Cluster {#CLUSTER}: SQOOP warning alerts</name>
+                            <type>DEPENDENT</type>
+                            <key>ambari.services.SQOOPWarnAlert[{#CLUSTER}]</key>
+                            <delay>0</delay>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>Cluster: {#CLUSTER}: SQOOP</name>
+                                </application_prototype>
+                            </application_prototypes>
+                            <preprocessing>
+                                <step>
+                                    <type>JSONPATH</type>
+                                    <params>$.['alerts_summary'].WARNING</params>
+                                </step>
+                            </preprocessing>
+                            <master_item>
+                                <key>ambari.cluster.getSQOOPMetrics[{#CLUSTER}]</key>
+                            </master_item>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <expression>{last(#5)}&gt;=1</expression>
+                                    <name>Cluster {#CLUSTER}: SQOOP service has {ITEM.LASTVALUE} warning alert(s)</name>
+                                    <priority>AVERAGE</priority>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Cluster {#CLUSTER}: TEZ critical alerts</name>
+                            <type>DEPENDENT</type>
+                            <key>ambari.services.TEZCritAlert[{#CLUSTER}]</key>
+                            <delay>0</delay>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>Cluster: {#CLUSTER}: TEZ</name>
+                                </application_prototype>
+                            </application_prototypes>
+                            <preprocessing>
+                                <step>
+                                    <type>JSONPATH</type>
+                                    <params>$.['alerts_summary'].CRITICAL</params>
+                                </step>
+                            </preprocessing>
+                            <master_item>
+                                <key>ambari.cluster.getTEZMetrics[{#CLUSTER}]</key>
+                            </master_item>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <expression>{last(#5)}&gt;=1</expression>
+                                    <name>Cluster {#CLUSTER}: TEZ service has {ITEM.LASTVALUE} critical alert(s)</name>
+                                    <priority>AVERAGE</priority>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Cluster {#CLUSTER}: TEZ maintenance alerts</name>
+                            <type>DEPENDENT</type>
+                            <key>ambari.services.TEZMaintAlert[{#CLUSTER}]</key>
+                            <delay>0</delay>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>Cluster: {#CLUSTER}: TEZ</name>
+                                </application_prototype>
+                            </application_prototypes>
+                            <preprocessing>
+                                <step>
+                                    <type>JSONPATH</type>
+                                    <params>$.['alerts_summary'].MAINTENANCE</params>
+                                </step>
+                            </preprocessing>
+                            <master_item>
+                                <key>ambari.cluster.getTEZMetrics[{#CLUSTER}]</key>
+                            </master_item>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <expression>{last(#5)}&gt;=1</expression>
+                                    <name>Cluster {#CLUSTER}: TEZ service has {ITEM.LASTVALUE} maintenance alert(s)</name>
+                                    <priority>AVERAGE</priority>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Cluster {#CLUSTER}: TEZ warning alerts</name>
+                            <type>DEPENDENT</type>
+                            <key>ambari.services.TEZWarnAlert[{#CLUSTER}]</key>
+                            <delay>0</delay>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>Cluster: {#CLUSTER}: TEZ</name>
+                                </application_prototype>
+                            </application_prototypes>
+                            <preprocessing>
+                                <step>
+                                    <type>JSONPATH</type>
+                                    <params>$.['alerts_summary'].WARNING</params>
+                                </step>
+                            </preprocessing>
+                            <master_item>
+                                <key>ambari.cluster.getTEZMetrics[{#CLUSTER}]</key>
+                            </master_item>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <expression>{last(#5)}&gt;=1</expression>
+                                    <name>Cluster {#CLUSTER}: TEZ service has {ITEM.LASTVALUE} warning alert(s)</name>
+                                    <priority>AVERAGE</priority>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Cluster {#CLUSTER}: YARN critical alerts</name>
+                            <type>DEPENDENT</type>
+                            <key>ambari.services.YARNCritAlert[{#CLUSTER}]</key>
+                            <delay>0</delay>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>Cluster: {#CLUSTER}: YARN</name>
+                                </application_prototype>
+                            </application_prototypes>
+                            <preprocessing>
+                                <step>
+                                    <type>JSONPATH</type>
+                                    <params>$.['alerts_summary'].CRITICAL</params>
+                                </step>
+                            </preprocessing>
+                            <master_item>
+                                <key>ambari.cluster.getYARNMetrics[{#CLUSTER}]</key>
+                            </master_item>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <expression>{last(#5)}&gt;=1</expression>
+                                    <name>Cluster {#CLUSTER}: YARN service has {ITEM.LASTVALUE} critical alert(s)</name>
+                                    <priority>AVERAGE</priority>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Cluster {#CLUSTER}: YARN maintenance alerts</name>
+                            <type>DEPENDENT</type>
+                            <key>ambari.services.YARNMaintAlert[{#CLUSTER}]</key>
+                            <delay>0</delay>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>Cluster: {#CLUSTER}: YARN</name>
+                                </application_prototype>
+                            </application_prototypes>
+                            <preprocessing>
+                                <step>
+                                    <type>JSONPATH</type>
+                                    <params>$.['alerts_summary'].MAINTENANCE</params>
+                                </step>
+                            </preprocessing>
+                            <master_item>
+                                <key>ambari.cluster.getYARNMetrics[{#CLUSTER}]</key>
+                            </master_item>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <expression>{last(#5)}&gt;=1</expression>
+                                    <name>Cluster {#CLUSTER}: YARN service has {ITEM.LASTVALUE} maintenance alert(s)</name>
+                                    <priority>AVERAGE</priority>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Cluster {#CLUSTER}: YARN warning alerts</name>
+                            <type>DEPENDENT</type>
+                            <key>ambari.services.YARNWarnAlert[{#CLUSTER}]</key>
+                            <delay>0</delay>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>Cluster: {#CLUSTER}: YARN</name>
+                                </application_prototype>
+                            </application_prototypes>
+                            <preprocessing>
+                                <step>
+                                    <type>JSONPATH</type>
+                                    <params>$.['alerts_summary'].WARNING</params>
+                                </step>
+                            </preprocessing>
+                            <master_item>
+                                <key>ambari.cluster.getHDFSMetrics[{#CLUSTER}]</key>
+                            </master_item>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <expression>{last(#5)}&gt;=1</expression>
+                                    <name>Cluster {#CLUSTER}: YARN service has {ITEM.LASTVALUE} warning alert(s)</name>
+                                    <priority>AVERAGE</priority>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Cluster {#CLUSTER}: ZOOKEEPER critical alerts</name>
+                            <type>DEPENDENT</type>
+                            <key>ambari.services.ZOOKEEPERCritAlert[{#CLUSTER}]</key>
+                            <delay>0</delay>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>Cluster: {#CLUSTER}: ZOOKEEPER</name>
+                                </application_prototype>
+                            </application_prototypes>
+                            <preprocessing>
+                                <step>
+                                    <type>JSONPATH</type>
+                                    <params>$.['alerts_summary'].CRITICAL</params>
+                                </step>
+                            </preprocessing>
+                            <master_item>
+                                <key>ambari.cluster.getZOOKEEPERMetrics[{#CLUSTER}]</key>
+                            </master_item>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <expression>{last(#5)}&gt;=1</expression>
+                                    <name>Cluster {#CLUSTER}: ZOOKEEPER service has {ITEM.LASTVALUE} critical alert(s)</name>
+                                    <priority>AVERAGE</priority>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Cluster {#CLUSTER}: ZOOKEEPER maintenance alerts</name>
+                            <type>DEPENDENT</type>
+                            <key>ambari.services.ZOOKEEPERMaintAlert[{#CLUSTER}]</key>
+                            <delay>0</delay>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>Cluster: {#CLUSTER}: ZOOKEEPER</name>
+                                </application_prototype>
+                            </application_prototypes>
+                            <preprocessing>
+                                <step>
+                                    <type>JSONPATH</type>
+                                    <params>$.['alerts_summary'].MAINTENANCE</params>
+                                </step>
+                            </preprocessing>
+                            <master_item>
+                                <key>ambari.cluster.getZOOKEEPERMetrics[{#CLUSTER}]</key>
+                            </master_item>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <expression>{last(#5)}&gt;=1</expression>
+                                    <name>Cluster {#CLUSTER}: ZOOKEEPER service has {ITEM.LASTVALUE} maintenance alert(s)</name>
+                                    <priority>AVERAGE</priority>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Cluster {#CLUSTER}: ZOOKEEPER warning alerts</name>
+                            <type>DEPENDENT</type>
+                            <key>ambari.services.ZOOKEEPERWarnAlert[{#CLUSTER}]</key>
+                            <delay>0</delay>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>Cluster: {#CLUSTER}: ZOOKEEPER</name>
+                                </application_prototype>
+                            </application_prototypes>
+                            <preprocessing>
+                                <step>
+                                    <type>JSONPATH</type>
+                                    <params>$.['alerts_summary'].WARNING</params>
+                                </step>
+                            </preprocessing>
+                            <master_item>
+                                <key>ambari.cluster.getZOOKEEPERMetrics[{#CLUSTER}]</key>
+                            </master_item>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <expression>{last(#5)}&gt;=1</expression>
+                                    <name>Cluster {#CLUSTER}: ZOOKEEPER service has {ITEM.LASTVALUE} warning alert(s)</name>
+                                    <priority>AVERAGE</priority>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Cluster {#CLUSTER}: total hosts</name>
+                            <type>DEPENDENT</type>
+                            <key>ambari.totalHosts[{#CLUSTER}]</key>
+                            <delay>0</delay>
+                            <history>7d</history>
+                            <trends>200d</trends>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>Cluster: {#CLUSTER}</name>
+                                </application_prototype>
+                            </application_prototypes>
+                            <preprocessing>
+                                <step>
+                                    <type>JSONPATH</type>
+                                    <params>$.Clusters.total_hosts</params>
+                                </step>
+                            </preprocessing>
+                            <master_item>
+                                <key>ambari.cluster.getMetrics[{#CLUSTER}]</key>
+                            </master_item>
+                        </item_prototype>
+                    </item_prototypes>
+                    <url>{$SCHEMA}://{HOST.IP}:{$PORT}{$PATH}</url>
+                    <lld_macro_paths>
+                        <lld_macro_path>
+                            <lld_macro>{#CLUSTER}</lld_macro>
+                            <path>$.cluster_name</path>
+                        </lld_macro_path>
+                    </lld_macro_paths>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$.items..Clusters</params>
+                        </step>
+                    </preprocessing>
+                </discovery_rule>
+            </discovery_rules>
+            <macros>
+                <macro>
+                    <macro>{$LOGIN}</macro>
+                    <value>&lt; intert value &gt;</value>
+                    <description>&quot;user:password&quot; or &quot;token&quot;</description>
+                </macro>
+                <macro>
+                    <macro>{$PASS}</macro>
+                </macro>
+                <macro>
+                    <macro>{$PATH}</macro>
+                    <value>/api/v1/clusters</value>
+                </macro>
+                <macro>
+                    <macro>{$PORT}</macro>
+                    <value>80</value>
+                </macro>
+                <macro>
+                    <macro>{$SCHEMA}</macro>
+                    <value>http</value>
+                </macro>
+                <macro>
+                    <macro>{$USER}</macro>
+                </macro>
+            </macros>
+        </template>
+    </templates>
+</zabbix_export>
