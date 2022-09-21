@@ -7,7 +7,6 @@ Esse template visa monitorar os serviços do Codex CNJ via agente HTTP.
 
 Prerequisites::
 
-Language: PT_BR
 Tested on version 5.0.27
 
 ## Author
