@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zabbix_export>
     <version>5.0</version>
-    <date>2022-09-21T15:52:17Z</date>
+    <date>2022-09-22T19:18:28Z</date>
     <groups>
         <group>
             <name>Templates/Applications</name>
@@ -444,9 +444,21 @@
                     </master_item>
                 </item>
                 <item>
-                    <name>Documentos comunicados</name>
+                    <name>Documentos pendentes de comunicação</name>
+                    <type>CALCULATED</type>
+                    <key>codex.documentos.comunicados.pendentes</key>
+                    <delay>2m</delay>
+                    <params>last(&quot;codex.documentos.processados.sucesso&quot;)-last(&quot;codex.documentos.comunicados.sucesso&quot;)</params>
+                    <applications>
+                        <application>
+                            <name>Estatisticas Documento</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>Documentos comunicados com sucesso</name>
                     <type>DEPENDENT</type>
-                    <key>codex.documento.comunicados</key>
+                    <key>codex.documentos.comunicados.sucesso</key>
                     <delay>0</delay>
                     <applications>
                         <application>
@@ -464,26 +476,13 @@
                     </master_item>
                 </item>
                 <item>
-                    <name>Documentos processados delta</name>
+                    <name>Documentos comunicados com sucesso (%)</name>
                     <type>CALCULATED</type>
-                    <key>codex.documento.comunicados.delta</key>
-                    <delay>2m</delay>
-                    <value_type>FLOAT</value_type>
-                    <params>change(&quot;codex.documento.processados&quot;)</params>
-                    <applications>
-                        <application>
-                            <name>Estatisticas Documento</name>
-                        </application>
-                    </applications>
-                </item>
-                <item>
-                    <name>Documentos comunicados em porcentagem</name>
-                    <type>CALCULATED</type>
-                    <key>codex.documento.comunicados.p</key>
+                    <key>codex.documentos.comunicados.sucesso.p</key>
                     <delay>2m</delay>
                     <value_type>FLOAT</value_type>
                     <units>%</units>
-                    <params>100*last(&quot;codex.documento.comunicados&quot;)/last(&quot;codex.documento.total&quot;)</params>
+                    <params>100*last(&quot;codex.documentos.comunicados.sucesso&quot;)/last(&quot;codex.documentos.totais&quot;)</params>
                     <applications>
                         <application>
                             <name>Estatisticas Documento</name>
@@ -491,9 +490,9 @@
                     </applications>
                 </item>
                 <item>
-                    <name>Documentos excluidos</name>
+                    <name>Documentos excluídos do processamento</name>
                     <type>DEPENDENT</type>
-                    <key>codex.documento.excluidos</key>
+                    <key>codex.documentos.processados.excluidos</key>
                     <delay>0</delay>
                     <applications>
                         <application>
@@ -511,13 +510,13 @@
                     </master_item>
                 </item>
                 <item>
-                    <name>Documentos excluidos em porcentagem</name>
+                    <name>Documentos excluídos do processamento (%)</name>
                     <type>CALCULATED</type>
-                    <key>codex.documento.excluidos.p</key>
+                    <key>codex.documentos.processados.excluidos.p</key>
                     <delay>2m</delay>
                     <value_type>FLOAT</value_type>
                     <units>%</units>
-                    <params>100*last(&quot;codex.documento.excluidos&quot;)/last(&quot;codex.documento.total&quot;)</params>
+                    <params>100*last(&quot;codex.documentos.processados.excluidos&quot;)/last(&quot;codex.documentos.totais&quot;)</params>
                     <applications>
                         <application>
                             <name>Estatisticas Documento</name>
@@ -525,9 +524,9 @@
                     </applications>
                 </item>
                 <item>
-                    <name>Documentos falhos</name>
+                    <name>Documentos com falha de processamento</name>
                     <type>DEPENDENT</type>
-                    <key>codex.documento.falhasProcessamento</key>
+                    <key>codex.documentos.processados.falha</key>
                     <delay>0</delay>
                     <applications>
                         <application>
@@ -545,13 +544,13 @@
                     </master_item>
                 </item>
                 <item>
-                    <name>Documentos falhos em porcentagem</name>
+                    <name>Documentos com falha de processamento (%)</name>
                     <type>CALCULATED</type>
-                    <key>codex.documento.falhasProcessamento.p</key>
+                    <key>codex.documentos.processados.falha.p</key>
                     <delay>2m</delay>
                     <value_type>FLOAT</value_type>
                     <units>%</units>
-                    <params>100*last(&quot;codex.documento.falhasProcessamento&quot;)/last(&quot;codex.documento.total&quot;)</params>
+                    <params>100*last(&quot;codex.documentos.processados.falha&quot;)/last(&quot;codex.documentos.totais&quot;)</params>
                     <applications>
                         <application>
                             <name>Estatisticas Documento</name>
@@ -559,11 +558,11 @@
                     </applications>
                 </item>
                 <item>
-                    <name>Documentos pendentes</name>
+                    <name>Documentos pendentes de processamento</name>
                     <type>CALCULATED</type>
-                    <key>codex.documento.pendentes</key>
+                    <key>codex.documentos.processados.pendentes</key>
                     <delay>2m</delay>
-                    <params>last(&quot;codex.documento.total&quot;)-(last(&quot;codex.documento.processados&quot;)+last(&quot;codex.documento.falhasProcessamento&quot;)+last(&quot;codex.documento.excluidos&quot;))</params>
+                    <params>last(&quot;codex.documentos.totais&quot;)-(last(&quot;codex.documentos.processados.sucesso&quot;)+last(&quot;codex.documentos.processados.falha&quot;)+last(&quot;codex.documentos.processados.excluidos&quot;))</params>
                     <applications>
                         <application>
                             <name>Estatisticas Documento</name>
@@ -571,12 +570,12 @@
                     </applications>
                 </item>
                 <item>
-                    <name>Documentos pendentes delta</name>
+                    <name>Documentos pendentes de processamento (delta)</name>
                     <type>CALCULATED</type>
-                    <key>codex.documento.pendentes.delta</key>
+                    <key>codex.documentos.processados.pendentes.d</key>
                     <delay>2m</delay>
                     <value_type>FLOAT</value_type>
-                    <params>change(&quot;codex.documento.pendentes&quot;)</params>
+                    <params>change(&quot;codex.documentos.processados.pendentes&quot;)</params>
                     <applications>
                         <application>
                             <name>Estatisticas Documento</name>
@@ -584,13 +583,13 @@
                     </applications>
                 </item>
                 <item>
-                    <name>Documentos pendentes em porcentagem</name>
+                    <name>Documentos pendentes de processamento (%)</name>
                     <type>CALCULATED</type>
-                    <key>codex.documento.pendentes.p</key>
+                    <key>codex.documentos.processados.pendentes.p</key>
                     <delay>2m</delay>
                     <value_type>FLOAT</value_type>
                     <units>%</units>
-                    <params>100*last(&quot;codex.documento.pendentes&quot;)/last(&quot;codex.documento.total&quot;)</params>
+                    <params>100*last(&quot;codex.documentos.processados.pendentes&quot;)/last(&quot;codex.documentos.totais&quot;)</params>
                     <applications>
                         <application>
                             <name>Estatisticas Documento</name>
@@ -598,9 +597,9 @@
                     </applications>
                 </item>
                 <item>
-                    <name>Documentos processados</name>
+                    <name>Documentos processados com sucesso</name>
                     <type>DEPENDENT</type>
-                    <key>codex.documento.processados</key>
+                    <key>codex.documentos.processados.sucesso</key>
                     <delay>0</delay>
                     <applications>
                         <application>
@@ -618,13 +617,26 @@
                     </master_item>
                 </item>
                 <item>
-                    <name>Documentos processados em porcentagem</name>
+                    <name>Documentos processados com sucesso (delta)</name>
                     <type>CALCULATED</type>
-                    <key>codex.documento.processados.p</key>
+                    <key>codex.documentos.processados.sucesso.d</key>
+                    <delay>2m</delay>
+                    <value_type>FLOAT</value_type>
+                    <params>change(&quot;codex.documentos.processados.sucesso&quot;)</params>
+                    <applications>
+                        <application>
+                            <name>Estatisticas Documento</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>Documentos processados com sucesso (%)</name>
+                    <type>CALCULATED</type>
+                    <key>codex.documentos.processados.sucesso.p</key>
                     <delay>2m</delay>
                     <value_type>FLOAT</value_type>
                     <units>%</units>
-                    <params>100*last(&quot;codex.documento.processados&quot;)/last(&quot;codex.documento.total&quot;)</params>
+                    <params>100*last(&quot;codex.documentos.processados.sucesso&quot;)/last(&quot;codex.documentos.totais&quot;)</params>
                     <applications>
                         <application>
                             <name>Estatisticas Documento</name>
@@ -634,7 +646,7 @@
                 <item>
                     <name>Documentos totais</name>
                     <type>DEPENDENT</type>
-                    <key>codex.documento.total</key>
+                    <key>codex.documentos.totais</key>
                     <delay>0</delay>
                     <applications>
                         <application>
