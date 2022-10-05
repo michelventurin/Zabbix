@@ -1,0 +1,2129 @@
+zabbix_export:
+  version: '6.0'
+  date: '2022-10-05T17:36:10Z'
+  groups:
+    -
+      uuid: a571c0d144b14fd4a87a9d9b2aa9fcd6
+      name: Templates/Applications
+  templates:
+    -
+      uuid: b8a703a4c8b74521ac6172a14c7ca2de
+      template: 'Template App Codex IA by HTTP'
+      name: 'Template App Codex IA by HTTP'
+      groups:
+        -
+          name: Templates/Applications
+      items:
+        -
+          uuid: 9ac6cf24e02a488baaa9dc9179789f5e
+          name: 'Conversor: Leitura no Banco de Dados'
+          type: DEPENDENT
+          key: codex.conversor.bancoDados.leitura
+          delay: '0'
+          valuemap:
+            name: 'Codex IA Status'
+          preprocessing:
+            -
+              type: JSONPATH
+              parameters:
+                - $.bancoDados.leitura.situacao
+              error_handler: CUSTOM_VALUE
+              error_handler_params: '2'
+            -
+              type: STR_REPLACE
+              parameters:
+                - SUCESSO
+                - '1'
+            -
+              type: STR_REPLACE
+              parameters:
+                - FALHA
+                - '0'
+          master_item:
+            key: codex.get.monitoraConversor
+          tags:
+            -
+              tag: Application
+              value: 'Banco de Dados'
+          triggers:
+            -
+              uuid: d6ed7839347a4a728d726e4f7a7e5e02
+              expression: 'max(/Template App Codex IA by HTTP/codex.conversor.bancoDados.leitura,5m)=0'
+              name: 'Conversor: Erro ao realizar leitura do Banco de Dados'
+              priority: WARNING
+        -
+          uuid: 94c5d61386f94251aaf60e2991c6f89b
+          name: 'Conversor: Google com SSL'
+          type: DEPENDENT
+          key: codex.conversor.googleComSSL
+          delay: '0'
+          valuemap:
+            name: 'Codex IA Status'
+          preprocessing:
+            -
+              type: JSONPATH
+              parameters:
+                - $.internet.googleComSsl.situacao
+              error_handler: CUSTOM_VALUE
+              error_handler_params: '2'
+            -
+              type: STR_REPLACE
+              parameters:
+                - SUCESSO
+                - '1'
+            -
+              type: STR_REPLACE
+              parameters:
+                - FALHA
+                - '0'
+          master_item:
+            key: codex.get.monitoraConversor
+          tags:
+            -
+              tag: Application
+              value: Internet
+        -
+          uuid: a50a6cb75adb4ebcaa76ace573c158b6
+          name: 'Conversor: Google sem SSL'
+          type: DEPENDENT
+          key: codex.conversor.googleSemSSL
+          delay: '0'
+          valuemap:
+            name: 'Codex IA Status'
+          preprocessing:
+            -
+              type: JSONPATH
+              parameters:
+                - $.internet.googleSemSsl.situacao
+              error_handler: CUSTOM_VALUE
+              error_handler_params: '2'
+            -
+              type: STR_REPLACE
+              parameters:
+                - SUCESSO
+                - '1'
+            -
+              type: STR_REPLACE
+              parameters:
+                - FALHA
+                - '0'
+          master_item:
+            key: codex.get.monitoraConversor
+          tags:
+            -
+              tag: Application
+              value: Internet
+        -
+          uuid: 9c17158734bc48229dab6070bb278242
+          name: 'Conversor: Memória livre'
+          type: DEPENDENT
+          key: codex.conversor.memoriaLivre
+          delay: '0'
+          units: B
+          valuemap:
+            name: 'Codex IA Status'
+          preprocessing:
+            -
+              type: JSONPATH
+              parameters:
+                - $.aplicacao.sistema.memoria.livre
+            -
+              type: MULTIPLIER
+              parameters:
+                - '1024'
+            -
+              type: MULTIPLIER
+              parameters:
+                - '1024'
+          master_item:
+            key: codex.get.monitoraConversor
+          tags:
+            -
+              tag: Application
+              value: Memória
+        -
+          uuid: e9d5784fd8d94f698800879f4b4ff0d9
+          name: 'Conversor: Memória total'
+          type: DEPENDENT
+          key: codex.conversor.memoriaTotal
+          delay: '0'
+          units: B
+          valuemap:
+            name: 'Codex IA Status'
+          preprocessing:
+            -
+              type: JSONPATH
+              parameters:
+                - $.aplicacao.sistema.memoria.total
+            -
+              type: MULTIPLIER
+              parameters:
+                - '1024'
+            -
+              type: MULTIPLIER
+              parameters:
+                - '1024'
+          master_item:
+            key: codex.get.monitoraConversor
+          tags:
+            -
+              tag: Application
+              value: Memória
+        -
+          uuid: 222545aab1d04d93a32beb5209c228d3
+          name: 'Conversor: Memória usada'
+          type: DEPENDENT
+          key: codex.conversor.memoriaUsada
+          delay: '0'
+          units: B
+          valuemap:
+            name: 'Codex IA Status'
+          preprocessing:
+            -
+              type: JSONPATH
+              parameters:
+                - $.aplicacao.sistema.memoria.usada
+            -
+              type: MULTIPLIER
+              parameters:
+                - '1024'
+            -
+              type: MULTIPLIER
+              parameters:
+                - '1024'
+          master_item:
+            key: codex.get.monitoraConversor
+          tags:
+            -
+              tag: Application
+              value: Memória
+        -
+          uuid: 2ac734ff853d47cf82f151e1532deed3
+          name: 'Conversor: Status da escrita no Storage'
+          type: DEPENDENT
+          key: codex.conversor.storageEscrita
+          delay: '0'
+          valuemap:
+            name: 'Codex IA Status'
+          preprocessing:
+            -
+              type: JSONPATH
+              parameters:
+                - $.storage.escrita.situacao
+              error_handler: CUSTOM_VALUE
+              error_handler_params: '2'
+            -
+              type: STR_REPLACE
+              parameters:
+                - SUCESSO
+                - '1'
+            -
+              type: STR_REPLACE
+              parameters:
+                - FALHA
+                - '0'
+            -
+              type: STR_REPLACE
+              parameters:
+                - IGNORADO
+                - '3'
+          master_item:
+            key: codex.get.monitoraConversor
+          tags:
+            -
+              tag: Application
+              value: Storage
+          triggers:
+            -
+              uuid: f8755368bb6b4b4eb53278cfca21c402
+              expression: 'max(/Template App Codex IA by HTTP/codex.conversor.storageEscrita,5m)=0'
+              name: 'Conversor: Erro ao realizar escrita no Storage'
+              priority: WARNING
+        -
+          uuid: 95090b1efd8e4ceb87c02f0755211924
+          name: 'Conversor: Status da exclusao no Storage'
+          type: DEPENDENT
+          key: codex.conversor.storageExclusao
+          delay: '0'
+          valuemap:
+            name: 'Codex IA Status'
+          preprocessing:
+            -
+              type: JSONPATH
+              parameters:
+                - $.storage.exclusao.situacao
+              error_handler: CUSTOM_VALUE
+              error_handler_params: '2'
+            -
+              type: STR_REPLACE
+              parameters:
+                - SUCESSO
+                - '1'
+            -
+              type: STR_REPLACE
+              parameters:
+                - FALHA
+                - '0'
+            -
+              type: STR_REPLACE
+              parameters:
+                - IGNORADO
+                - '3'
+          master_item:
+            key: codex.get.monitoraConversor
+          tags:
+            -
+              tag: Application
+              value: Storage
+          triggers:
+            -
+              uuid: 2131788b1b1b438daf4fd64867f01fb1
+              expression: 'max(/Template App Codex IA by HTTP/codex.conversor.storageExclusao,5m)=0'
+              name: 'Conversor: Erro ao realizar exclusão no Storage'
+              priority: WARNING
+        -
+          uuid: 18eef43f5b49463381635a16b498675d
+          name: 'Conversor: Status da leitura no Storage'
+          type: DEPENDENT
+          key: codex.conversor.storageLeitura
+          delay: '0'
+          valuemap:
+            name: 'Codex IA Status'
+          preprocessing:
+            -
+              type: JSONPATH
+              parameters:
+                - $.storage.leitura.situacao
+              error_handler: CUSTOM_VALUE
+              error_handler_params: '2'
+            -
+              type: STR_REPLACE
+              parameters:
+                - SUCESSO
+                - '1'
+            -
+              type: STR_REPLACE
+              parameters:
+                - FALHA
+                - '0'
+            -
+              type: STR_REPLACE
+              parameters:
+                - IGNORADO
+                - '3'
+          master_item:
+            key: codex.get.monitoraConversor
+          tags:
+            -
+              tag: Application
+              value: Storage
+          triggers:
+            -
+              uuid: f3eba3a4be8248ad889dfe81fdba10b2
+              expression: 'max(/Template App Codex IA by HTTP/codex.conversor.storageLeitura,5m)=0'
+              name: 'Conversor: Erro ao realizar leitura no Storage'
+              priority: WARNING
+        -
+          uuid: 805983832b9d477ea986970dca9603aa
+          name: 'Conversor: Utilização de memória'
+          type: CALCULATED
+          key: codex.conversor.utilizacaoMemoria
+          delay: 2m
+          value_type: FLOAT
+          units: '%'
+          params: '100*last(//codex.conversor.memoriaUsada)/last(//codex.conversor.memoriaTotal)'
+          tags:
+            -
+              tag: Application
+              value: Memória
+        -
+          uuid: 0a30b2c525a54a218ef643f0e967f3e0
+          name: 'Conversor: Versão'
+          type: DEPENDENT
+          key: codex.conversor.versao
+          delay: '0'
+          trends: '0'
+          value_type: TEXT
+          preprocessing:
+            -
+              type: JSONPATH
+              parameters:
+                - $.aplicacao.versao
+          master_item:
+            key: codex.get.monitoraConversor
+          tags:
+            -
+              tag: Application
+              value: Codex
+        -
+          uuid: b23832c2f9a14817a1ff1e9df2783be0
+          name: 'Documentos pendentes de comunicação'
+          type: CALCULATED
+          key: codex.documentos.comunicados.pendentes
+          delay: 2m
+          params: last(//codex.documentos.processados.sucesso)-last(//codex.documentos.comunicados.sucesso)
+          tags:
+            -
+              tag: Application
+              value: 'Estatisticas Documento'
+        -
+          uuid: 07484f3de37d4e92b7d73b3a8ee4a45e
+          name: 'Documentos comunicados com sucesso'
+          type: DEPENDENT
+          key: codex.documentos.comunicados.sucesso
+          delay: '0'
+          preprocessing:
+            -
+              type: JSONPATH
+              parameters:
+                - $.comunicados
+          master_item:
+            key: codex.get.estatisticaDocumento
+          tags:
+            -
+              tag: Application
+              value: 'Estatisticas Documento'
+        -
+          uuid: cb9bfca648684a7689d92b60e94d62a6
+          name: 'Documentos comunicados com sucesso (%)'
+          type: CALCULATED
+          key: codex.documentos.comunicados.sucesso.p
+          delay: 2m
+          value_type: FLOAT
+          units: '%'
+          params: '100*last(//codex.documentos.comunicados.sucesso)/last(//codex.documentos.totais)'
+          tags:
+            -
+              tag: Application
+              value: 'Estatisticas Documento'
+        -
+          uuid: 99cb28327d2d456883c6739f66c7121c
+          name: 'Documentos excluídos do processamento'
+          type: DEPENDENT
+          key: codex.documentos.processados.excluidos
+          delay: '0'
+          preprocessing:
+            -
+              type: JSONPATH
+              parameters:
+                - $.excluidos
+          master_item:
+            key: codex.get.estatisticaDocumento
+          tags:
+            -
+              tag: Application
+              value: 'Estatisticas Documento'
+        -
+          uuid: 21d232225601476598340ff81643267e
+          name: 'Documentos excluídos do processamento (%)'
+          type: CALCULATED
+          key: codex.documentos.processados.excluidos.p
+          delay: 2m
+          value_type: FLOAT
+          units: '%'
+          params: '100*last(//codex.documentos.processados.excluidos)/last(//codex.documentos.totais)'
+          tags:
+            -
+              tag: Application
+              value: 'Estatisticas Documento'
+        -
+          uuid: e8f4d540a0df44439a55feb8784be934
+          name: 'Documentos com falha de processamento'
+          type: DEPENDENT
+          key: codex.documentos.processados.falha
+          delay: '0'
+          preprocessing:
+            -
+              type: JSONPATH
+              parameters:
+                - $.falhasProcessamento
+          master_item:
+            key: codex.get.estatisticaDocumento
+          tags:
+            -
+              tag: Application
+              value: 'Estatisticas Documento'
+        -
+          uuid: 7dd7224df5354e72a809962370cfd3a3
+          name: 'Documentos com falha de processamento (%)'
+          type: CALCULATED
+          key: codex.documentos.processados.falha.p
+          delay: 2m
+          value_type: FLOAT
+          units: '%'
+          params: '100*last(//codex.documentos.processados.falha)/last(//codex.documentos.totais)'
+          tags:
+            -
+              tag: Application
+              value: 'Estatisticas Documento'
+        -
+          uuid: f9c3cbe0751b4fec8039fc21227e7e5c
+          name: 'Documentos pendentes de processamento'
+          type: CALCULATED
+          key: codex.documentos.processados.pendentes
+          delay: 2m
+          params: last(//codex.documentos.totais)-(last(//codex.documentos.processados.sucesso)+last(//codex.documentos.processados.falha)+last(//codex.documentos.processados.excluidos))
+          tags:
+            -
+              tag: Application
+              value: 'Estatisticas Documento'
+        -
+          uuid: d14a20dc2c6146acb340683bf0693e05
+          name: 'Documentos pendentes de processamento (delta)'
+          type: CALCULATED
+          key: codex.documentos.processados.pendentes.d
+          delay: 2m
+          value_type: FLOAT
+          params: change(//codex.documentos.processados.pendentes)
+          tags:
+            -
+              tag: Application
+              value: 'Estatisticas Documento'
+        -
+          uuid: 14ddfa4fa8c5424988ae52c070e00289
+          name: 'Documentos pendentes de processamento (%)'
+          type: CALCULATED
+          key: codex.documentos.processados.pendentes.p
+          delay: 2m
+          value_type: FLOAT
+          units: '%'
+          params: '100*last(//codex.documentos.processados.pendentes)/last(//codex.documentos.totais)'
+          tags:
+            -
+              tag: Application
+              value: 'Estatisticas Documento'
+        -
+          uuid: e0adaddcbb9d42c7ae95a8522bad23e4
+          name: 'Documentos processados com sucesso'
+          type: DEPENDENT
+          key: codex.documentos.processados.sucesso
+          delay: '0'
+          preprocessing:
+            -
+              type: JSONPATH
+              parameters:
+                - $.processados
+          master_item:
+            key: codex.get.estatisticaDocumento
+          tags:
+            -
+              tag: Application
+              value: 'Estatisticas Documento'
+        -
+          uuid: f0a7e5b8a9e54cd59d3ab5ed431b4a94
+          name: 'Documentos processados com sucesso (delta)'
+          type: CALCULATED
+          key: codex.documentos.processados.sucesso.d
+          delay: 2m
+          value_type: FLOAT
+          params: change(//codex.documentos.processados.sucesso)
+          tags:
+            -
+              tag: Application
+              value: 'Estatisticas Documento'
+        -
+          uuid: 8c4b5366dbfa487c8e062d4a9bab4799
+          name: 'Documentos processados com sucesso (%)'
+          type: CALCULATED
+          key: codex.documentos.processados.sucesso.p
+          delay: 2m
+          value_type: FLOAT
+          units: '%'
+          params: '100*last(//codex.documentos.processados.sucesso)/last(//codex.documentos.totais)'
+          tags:
+            -
+              tag: Application
+              value: 'Estatisticas Documento'
+        -
+          uuid: a74f2b310bd146b79a81f2bb9d5c42ad
+          name: 'Documentos totais'
+          type: DEPENDENT
+          key: codex.documentos.totais
+          delay: '0'
+          preprocessing:
+            -
+              type: JSONPATH
+              parameters:
+                - $.total
+          master_item:
+            key: codex.get.estatisticaDocumento
+          tags:
+            -
+              tag: Application
+              value: 'Estatisticas Documento'
+        -
+          uuid: efbf22ffce7c40d2af1f8cf014f15060
+          name: 'Extrator: Leitura no Banco de Dados'
+          type: DEPENDENT
+          key: codex.extrator.bancoDados.leitura
+          delay: '0'
+          valuemap:
+            name: 'Codex IA Status'
+          preprocessing:
+            -
+              type: JSONPATH
+              parameters:
+                - $.bancoDados.leitura.situacao
+              error_handler: CUSTOM_VALUE
+              error_handler_params: '2'
+            -
+              type: STR_REPLACE
+              parameters:
+                - SUCESSO
+                - '1'
+            -
+              type: STR_REPLACE
+              parameters:
+                - FALHA
+                - '0'
+          master_item:
+            key: codex.get.monitoraExtrator
+          tags:
+            -
+              tag: Application
+              value: 'Banco de Dados'
+          triggers:
+            -
+              uuid: c2ff73d6bbd748319c6572e7c27f77e2
+              expression: 'max(/Template App Codex IA by HTTP/codex.extrator.bancoDados.leitura,5m)=0'
+              name: 'Extrator: Erro ao realizar leitura do Banco de Dados'
+              priority: WARNING
+        -
+          uuid: 3ea472ace3c6465c98656eada63fdb58
+          name: 'Extrator: Acesso ao Codex'
+          type: DEPENDENT
+          key: codex.extrator.codexAcesso
+          delay: '0'
+          valuemap:
+            name: 'Codex IA Status'
+          preprocessing:
+            -
+              type: JSONPATH
+              parameters:
+                - $.codex.acesso.situacao
+              error_handler: CUSTOM_VALUE
+              error_handler_params: '2'
+            -
+              type: STR_REPLACE
+              parameters:
+                - SUCESSO
+                - '1'
+            -
+              type: STR_REPLACE
+              parameters:
+                - FALHA
+                - '0'
+          master_item:
+            key: codex.get.monitoraExtrator
+          tags:
+            -
+              tag: Application
+              value: Codex
+          triggers:
+            -
+              uuid: 3c1035cecd534a259c40a77f3b0f06b7
+              expression: 'max(/Template App Codex IA by HTTP/codex.extrator.codexAcesso,5m)=0'
+              name: 'Extrator: Erro ao acessar o Codex'
+              priority: WARNING
+        -
+          uuid: c27f4dfae6bf4e14aac77297ee4391c2
+          name: 'Extrator: Integração com o Codex'
+          type: DEPENDENT
+          key: codex.extrator.codexIntegracao
+          delay: '0'
+          valuemap:
+            name: 'Codex IA Status'
+          preprocessing:
+            -
+              type: JSONPATH
+              parameters:
+                - $.codex.acesso.situacao
+              error_handler: CUSTOM_VALUE
+              error_handler_params: '2'
+            -
+              type: STR_REPLACE
+              parameters:
+                - SUCESSO
+                - '1'
+            -
+              type: STR_REPLACE
+              parameters:
+                - FALHA
+                - '0'
+          master_item:
+            key: codex.get.monitoraExtrator
+          tags:
+            -
+              tag: Application
+              value: Codex
+          triggers:
+            -
+              uuid: 1de587b4707c4d19b8ef85c0606f73e4
+              expression: 'max(/Template App Codex IA by HTTP/codex.extrator.codexIntegracao,5m)=0'
+              name: 'Extrator: Erro na integração com o Codex'
+              priority: WARNING
+        -
+          uuid: 9c81a65b1de54f4681c6bf4997ea2303
+          name: 'Extrator: Acesso ao Conversor'
+          type: DEPENDENT
+          key: codex.extrator.conversorAcesso
+          delay: '0'
+          valuemap:
+            name: 'Codex IA Status'
+          preprocessing:
+            -
+              type: JSONPATH
+              parameters:
+                - $.conversor.acesso.situacao
+              error_handler: CUSTOM_VALUE
+              error_handler_params: '2'
+            -
+              type: STR_REPLACE
+              parameters:
+                - SUCESSO
+                - '1'
+            -
+              type: STR_REPLACE
+              parameters:
+                - FALHA
+                - '0'
+          master_item:
+            key: codex.get.monitoraExtrator
+          tags:
+            -
+              tag: Application
+              value: Conversor
+          triggers:
+            -
+              uuid: c6a4acf6d4ba4e37b35c18e4059bb14b
+              expression: 'max(/Template App Codex IA by HTTP/codex.extrator.conversorAcesso,5m)=0'
+              name: 'Extrator: Erro ao acessar o Conversor'
+              priority: WARNING
+        -
+          uuid: 4c3fe384d60a4e2191b7270dee348df9
+          name: 'Extrator: Integração com o Conversor'
+          type: DEPENDENT
+          key: codex.extrator.conversorIntegracao
+          delay: '0'
+          valuemap:
+            name: 'Codex IA Status'
+          preprocessing:
+            -
+              type: JSONPATH
+              parameters:
+                - $.conversor.acesso.situacao
+              error_handler: CUSTOM_VALUE
+              error_handler_params: '2'
+            -
+              type: STR_REPLACE
+              parameters:
+                - SUCESSO
+                - '1'
+            -
+              type: STR_REPLACE
+              parameters:
+                - FALHA
+                - '0'
+          master_item:
+            key: codex.get.monitoraExtrator
+          tags:
+            -
+              tag: Application
+              value: Conversor
+          triggers:
+            -
+              uuid: ff9703ea1ce7417a9839ec942b73c691
+              expression: 'max(/Template App Codex IA by HTTP/codex.extrator.conversorIntegracao,5m)=0'
+              name: 'Extrator: Erro na integração com o Conversor'
+              priority: WARNING
+        -
+          uuid: e1af54cb6afb447ca6109266193d2539
+          name: 'Extrator: Google com SSL'
+          type: DEPENDENT
+          key: codex.extrator.googleComSSL
+          delay: '0'
+          valuemap:
+            name: 'Codex IA Status'
+          preprocessing:
+            -
+              type: JSONPATH
+              parameters:
+                - $.internet.googleComSsl.situacao
+              error_handler: CUSTOM_VALUE
+              error_handler_params: '2'
+            -
+              type: STR_REPLACE
+              parameters:
+                - SUCESSO
+                - '1'
+            -
+              type: STR_REPLACE
+              parameters:
+                - FALHA
+                - '0'
+          master_item:
+            key: codex.get.monitoraExtrator
+          tags:
+            -
+              tag: Application
+              value: Internet
+        -
+          uuid: cae731fa3fc7401eb6bb40b5d011bd30
+          name: 'Extrator: Google sem SSL'
+          type: DEPENDENT
+          key: codex.extrator.googleSemSSL
+          delay: '0'
+          valuemap:
+            name: 'Codex IA Status'
+          preprocessing:
+            -
+              type: JSONPATH
+              parameters:
+                - $.internet.googleSemSsl.situacao
+              error_handler: CUSTOM_VALUE
+              error_handler_params: '2'
+            -
+              type: STR_REPLACE
+              parameters:
+                - SUCESSO
+                - '1'
+            -
+              type: STR_REPLACE
+              parameters:
+                - FALHA
+                - '0'
+          master_item:
+            key: codex.get.monitoraExtrator
+          tags:
+            -
+              tag: Application
+              value: Internet
+        -
+          uuid: caf6bd79cf3f4ba0a11b9198f7a5dfb0
+          name: 'Extrator: Memória livre'
+          type: DEPENDENT
+          key: codex.extrator.memoriaLivre
+          delay: '0'
+          units: B
+          valuemap:
+            name: 'Codex IA Status'
+          preprocessing:
+            -
+              type: JSONPATH
+              parameters:
+                - $.aplicacao.sistema.memoria.livre
+            -
+              type: MULTIPLIER
+              parameters:
+                - '1024'
+            -
+              type: MULTIPLIER
+              parameters:
+                - '1024'
+          master_item:
+            key: codex.get.monitoraExtrator
+          tags:
+            -
+              tag: Application
+              value: Memória
+        -
+          uuid: d6c2674e23354504b4a0968344a4f2cd
+          name: 'Extrator: Memória total'
+          type: DEPENDENT
+          key: codex.extrator.memoriaTotal
+          delay: '0'
+          units: B
+          valuemap:
+            name: 'Codex IA Status'
+          preprocessing:
+            -
+              type: JSONPATH
+              parameters:
+                - $.aplicacao.sistema.memoria.total
+            -
+              type: MULTIPLIER
+              parameters:
+                - '1024'
+            -
+              type: MULTIPLIER
+              parameters:
+                - '1024'
+          master_item:
+            key: codex.get.monitoraExtrator
+          tags:
+            -
+              tag: Application
+              value: Memória
+        -
+          uuid: 61ae8a46696e467296c2bfab62dccb52
+          name: 'Extrator: Memória usada'
+          type: DEPENDENT
+          key: codex.extrator.memoriaUsada
+          delay: '0'
+          units: B
+          valuemap:
+            name: 'Codex IA Status'
+          preprocessing:
+            -
+              type: JSONPATH
+              parameters:
+                - $.aplicacao.sistema.memoria.usada
+            -
+              type: MULTIPLIER
+              parameters:
+                - '1024'
+            -
+              type: MULTIPLIER
+              parameters:
+                - '1024'
+          master_item:
+            key: codex.get.monitoraExtrator
+          tags:
+            -
+              tag: Application
+              value: Memória
+        -
+          uuid: d907c807d89041c7b5d648444129bf2c
+          name: 'Extrator: Acesso ao Prisma'
+          type: DEPENDENT
+          key: codex.extrator.prismaAcesso
+          delay: '0'
+          valuemap:
+            name: 'Codex IA Status'
+          preprocessing:
+            -
+              type: JSONPATH
+              parameters:
+                - $.prisma.acesso.situacao
+              error_handler: CUSTOM_VALUE
+              error_handler_params: '2'
+            -
+              type: STR_REPLACE
+              parameters:
+                - SUCESSO
+                - '1'
+            -
+              type: STR_REPLACE
+              parameters:
+                - FALHA
+                - '0'
+          master_item:
+            key: codex.get.monitoraExtrator
+          tags:
+            -
+              tag: Application
+              value: Prisma
+          triggers:
+            -
+              uuid: 7c2153047d1a4c3680cd62073fabfe75
+              expression: 'max(/Template App Codex IA by HTTP/codex.extrator.prismaAcesso,5m)=0'
+              name: 'Extrator: Erro ao acessar o Prisma'
+              priority: WARNING
+        -
+          uuid: 19b7289d84df45f6bed76c58ff43d1d9
+          name: 'Extrator: Integração com o Prisma'
+          type: DEPENDENT
+          key: codex.extrator.prismaIntegracao
+          delay: '0'
+          valuemap:
+            name: 'Codex IA Status'
+          preprocessing:
+            -
+              type: JSONPATH
+              parameters:
+                - $.prisma.acesso.situacao
+              error_handler: CUSTOM_VALUE
+              error_handler_params: '2'
+            -
+              type: STR_REPLACE
+              parameters:
+                - SUCESSO
+                - '1'
+            -
+              type: STR_REPLACE
+              parameters:
+                - FALHA
+                - '0'
+          master_item:
+            key: codex.get.monitoraExtrator
+          tags:
+            -
+              tag: Application
+              value: Prisma
+          triggers:
+            -
+              uuid: 807d1a8f7c7c439f81c337b1fea4f167
+              expression: 'max(/Template App Codex IA by HTTP/codex.extrator.prismaIntegracao,5m)=0'
+              name: 'Extrator: Erro na integração com o Prisma'
+              priority: WARNING
+        -
+          uuid: 2c250be2ce884fb6b5ca889e73779333
+          name: 'Extrator: Status da escrita no Storage'
+          type: DEPENDENT
+          key: codex.extrator.storageEscrita
+          delay: '0'
+          valuemap:
+            name: 'Codex IA Status'
+          preprocessing:
+            -
+              type: JSONPATH
+              parameters:
+                - $.storage.escrita.situacao
+              error_handler: CUSTOM_VALUE
+              error_handler_params: '2'
+            -
+              type: STR_REPLACE
+              parameters:
+                - SUCESSO
+                - '1'
+            -
+              type: STR_REPLACE
+              parameters:
+                - FALHA
+                - '0'
+            -
+              type: STR_REPLACE
+              parameters:
+                - IGNORADO
+                - '3'
+          master_item:
+            key: codex.get.monitoraExtrator
+          tags:
+            -
+              tag: Application
+              value: Storage
+          triggers:
+            -
+              uuid: aab368011eb44dd7bc617ce9db059cb8
+              expression: 'max(/Template App Codex IA by HTTP/codex.extrator.storageEscrita,5m)=0'
+              name: 'Extrator: Erro ao realizar escrita no Storage'
+              priority: WARNING
+        -
+          uuid: d74df511eb5041d38cb82daec3520936
+          name: 'Extrator: Status da exclusao no Storage'
+          type: DEPENDENT
+          key: codex.extrator.storageExclusao
+          delay: '0'
+          valuemap:
+            name: 'Codex IA Status'
+          preprocessing:
+            -
+              type: JSONPATH
+              parameters:
+                - $.storage.exclusao.situacao
+              error_handler: CUSTOM_VALUE
+              error_handler_params: '2'
+            -
+              type: STR_REPLACE
+              parameters:
+                - SUCESSO
+                - '1'
+            -
+              type: STR_REPLACE
+              parameters:
+                - FALHA
+                - '0'
+            -
+              type: STR_REPLACE
+              parameters:
+                - IGNORADO
+                - '3'
+          master_item:
+            key: codex.get.monitoraExtrator
+          tags:
+            -
+              tag: Application
+              value: Storage
+          triggers:
+            -
+              uuid: 57835b85289f4e83b0f2cd57370439fa
+              expression: 'max(/Template App Codex IA by HTTP/codex.extrator.storageExclusao,5m)=0'
+              name: 'Extrator: Erro ao realizar exclusão no Storage'
+              priority: WARNING
+        -
+          uuid: a639207ef8154550bb097e674a2bea76
+          name: 'Extrator: Status da leitura no Storage'
+          type: DEPENDENT
+          key: codex.extrator.storageLeitura
+          delay: '0'
+          valuemap:
+            name: 'Codex IA Status'
+          preprocessing:
+            -
+              type: JSONPATH
+              parameters:
+                - $.storage.leitura.situacao
+              error_handler: CUSTOM_VALUE
+              error_handler_params: '2'
+            -
+              type: STR_REPLACE
+              parameters:
+                - SUCESSO
+                - '1'
+            -
+              type: STR_REPLACE
+              parameters:
+                - FALHA
+                - '0'
+            -
+              type: STR_REPLACE
+              parameters:
+                - IGNORADO
+                - '3'
+          master_item:
+            key: codex.get.monitoraExtrator
+          tags:
+            -
+              tag: Application
+              value: Storage
+          triggers:
+            -
+              uuid: 52bd3b06a99149a3a80aa2d2e53a57a1
+              expression: 'max(/Template App Codex IA by HTTP/codex.extrator.storageLeitura,5m)=0'
+              name: 'Extrator: Erro ao realizar leitura no Storage'
+              priority: WARNING
+        -
+          uuid: 7e11fa5b20594b6e9d68ac526bf732c3
+          name: 'Extrator: Utilização de memória'
+          type: CALCULATED
+          key: codex.extrator.utilizacaoMemoria
+          delay: 2m
+          value_type: FLOAT
+          units: '%'
+          params: '100*last(//codex.extrator.memoriaUsada)/last(//codex.extrator.memoriaTotal)'
+          tags:
+            -
+              tag: Application
+              value: Memória
+        -
+          uuid: 220a03723e84418c8026c7d70320c2ac
+          name: 'Extrator: Versão'
+          type: DEPENDENT
+          key: codex.extrator.versao
+          delay: '0'
+          trends: '0'
+          value_type: TEXT
+          preprocessing:
+            -
+              type: JSONPATH
+              parameters:
+                - $.aplicacao.versao
+          master_item:
+            key: codex.get.monitoraExtrator
+          tags:
+            -
+              tag: Application
+              value: Codex
+        -
+          uuid: 62c2852bc79a42288ea8d9206559068a
+          name: 'Obter estatísticas de Documento'
+          type: HTTP_AGENT
+          key: codex.get.estatisticaDocumento
+          delay: 2m
+          trends: '0'
+          value_type: TEXT
+          authtype: BASIC
+          username: '{$USER}'
+          password: '{$PASS}'
+          timeout: 60s
+          url: '{$URL}/rest/extracaoEstatisticas/recuperarEstatisticasProcessoDocumento'
+          tags:
+            -
+              tag: Application
+              value: 'Zabbix raw data'
+          triggers:
+            -
+              uuid: 3ec98dc5a5744d51a98504ed2327c7ee
+              expression: 'nodata(/Template App Codex IA by HTTP/codex.get.estatisticaDocumento,5m)=1'
+              name: 'Erro ao buscar dados de Estatística Documento'
+              priority: AVERAGE
+        -
+          uuid: 2c0b11dc86e24640a104deda66277f06
+          name: 'Obter estatísticas de Pessoa'
+          type: HTTP_AGENT
+          key: codex.get.estatisticaPessoa
+          delay: 2m
+          trends: '0'
+          value_type: TEXT
+          authtype: BASIC
+          username: '{$USER}'
+          password: '{$PASS}'
+          timeout: 60s
+          url: '{$URL}/rest/extracaoEstatisticas/recuperarEstatisticasPessoa'
+          tags:
+            -
+              tag: Application
+              value: 'Zabbix raw data'
+          triggers:
+            -
+              uuid: a61b7c469a2a45df9694f04370dd5899
+              expression: 'nodata(/Template App Codex IA by HTTP/codex.get.estatisticaPessoa,5m)=1'
+              name: 'Erro ao buscar dados de Estatística Pessoa'
+              priority: AVERAGE
+        -
+          uuid: 212fd98c59fb4174b6226580c7192feb
+          name: 'Obter estatísticas de Processo'
+          type: HTTP_AGENT
+          key: codex.get.estatisticaProcesso
+          delay: 2m
+          trends: '0'
+          value_type: TEXT
+          authtype: BASIC
+          username: '{$USER}'
+          password: '{$PASS}'
+          timeout: 60s
+          url: '{$URL}/rest/extracaoEstatisticas/recuperarEstatisticasProcesso'
+          tags:
+            -
+              tag: Application
+              value: 'Zabbix raw data'
+          triggers:
+            -
+              uuid: 903de1b7836442648f90db01cc8f4f35
+              expression: 'nodata(/Template App Codex IA by HTTP/codex.get.estatisticaProcesso,5m)=1'
+              name: 'Erro ao buscar dados de Estatística Processo'
+              priority: AVERAGE
+        -
+          uuid: 69ab2ce9ae85415ba8dded1bf9c00b48
+          name: 'Obter status do Conversor'
+          type: HTTP_AGENT
+          key: codex.get.monitoraConversor
+          delay: 2m
+          trends: '0'
+          value_type: TEXT
+          authtype: BASIC
+          username: '{$USER}'
+          password: '{$PASS}'
+          description: |
+            Monitoramento Conversor
+            
+            Authorization
+            
+            Basic dGptdF9wamVwZ19leHRyYXRvcjoyYzg0ZGY3ODg4ODBmYTQ4MmE0ZDJhZDhlY2ViNDU5OA==
+          timeout: 50s
+          url: '{$URL}/rest/extracao/monitorarConversor'
+          tags:
+            -
+              tag: Application
+              value: 'Zabbix raw data'
+          triggers:
+            -
+              uuid: 26870f159c0f446083abd3ba577bfa9a
+              expression: 'nodata(/Template App Codex IA by HTTP/codex.get.monitoraConversor,5m)=1'
+              name: 'Erro ao buscar dados do Conversor'
+              priority: AVERAGE
+        -
+          uuid: 697995efe81242c8ad448cb55b2e2d7c
+          name: 'Obter status do Extrator'
+          type: HTTP_AGENT
+          key: codex.get.monitoraExtrator
+          delay: 2m
+          trends: '0'
+          value_type: TEXT
+          authtype: BASIC
+          username: '{$USER}'
+          password: '{$PASS}'
+          description: |
+            Monitoramento Extrator
+            
+            Authorization
+            Basic dGptdF9wamVwZ19leHRyYXRvcjoyYzg0ZGY3ODg4ODBmYTQ4MmE0ZDJhZDhlY2ViNDU5OA==
+          timeout: 50s
+          url: '{$URL}/rest/extracao/monitorar'
+          tags:
+            -
+              tag: Application
+              value: 'Zabbix raw data'
+          triggers:
+            -
+              uuid: a6edfa83f6ae42eab7ac6bbad62bf22b
+              expression: 'nodata(/Template App Codex IA by HTTP/codex.get.monitoraExtrator,5m)=1'
+              name: 'Erro ao buscar dados do Extrator'
+              priority: AVERAGE
+        -
+          uuid: 725b76e0b8c542bf8f0b9e49cb64c859
+          name: 'Obter status do Iris'
+          type: HTTP_AGENT
+          key: codex.get.monitoraIris
+          delay: 2m
+          trends: '0'
+          value_type: TEXT
+          authtype: BASIC
+          username: '{$USER}'
+          password: '{$PASS}'
+          description: |
+            Monitoramento Iris
+            
+            Authorization
+            
+            Basic dGptdF9wamVwZ19leHRyYXRvcjoyYzg0ZGY3ODg4ODBmYTQ4MmE0ZDJhZDhlY2ViNDU5OA==
+          timeout: 50s
+          url: '{$URL}/rest/extracao/monitorarIris'
+          tags:
+            -
+              tag: Application
+              value: 'Zabbix raw data'
+          triggers:
+            -
+              uuid: 36d0e837e7694584844b6e4a16a01573
+              expression: 'nodata(/Template App Codex IA by HTTP/codex.get.monitoraIris,5m)=1'
+              name: 'Erro ao buscar dados do Iris'
+              priority: AVERAGE
+        -
+          uuid: e8d67120739846f2b98e33e5af317446
+          name: 'Obter status do Prisma'
+          type: HTTP_AGENT
+          key: codex.get.monitoraPrisma
+          delay: 2m
+          trends: '0'
+          value_type: TEXT
+          authtype: BASIC
+          username: '{$USER}'
+          password: '{$PASS}'
+          description: |
+            Monitoramento Prisma
+            
+            Authorization
+            
+            Basic dGptdF9wamVwZ19leHRyYXRvcjoyYzg0ZGY3ODg4ODBmYTQ4MmE0ZDJhZDhlY2ViNDU5OA==
+          timeout: 50s
+          url: '{$URL}/rest/extracao/monitorarPrisma'
+          tags:
+            -
+              tag: Application
+              value: 'Zabbix raw data'
+          triggers:
+            -
+              uuid: 846ae7ff5a0f4279b7e10d085f86c0cd
+              expression: 'nodata(/Template App Codex IA by HTTP/codex.get.monitoraPrisma,5m)=1'
+              name: 'Erro ao buscar dados do Prisma'
+              priority: AVERAGE
+        -
+          uuid: b8366e05185c4e9f8e936207a14308e9
+          name: 'Iris: Google com SSL'
+          type: DEPENDENT
+          key: codex.iris.googleComSSL
+          delay: '0'
+          valuemap:
+            name: 'Codex IA Status'
+          preprocessing:
+            -
+              type: JSONPATH
+              parameters:
+                - $.internet.googleComSsl.situacao
+              error_handler: CUSTOM_VALUE
+              error_handler_params: '2'
+            -
+              type: STR_REPLACE
+              parameters:
+                - SUCESSO
+                - '1'
+            -
+              type: STR_REPLACE
+              parameters:
+                - FALHA
+                - '0'
+          master_item:
+            key: codex.get.monitoraIris
+          tags:
+            -
+              tag: Application
+              value: Internet
+        -
+          uuid: 1e6d293cf58f4ec4af9d70c07aa071dc
+          name: 'Iris: Google sem SSL'
+          type: DEPENDENT
+          key: codex.iris.googleSemSSL
+          delay: '0'
+          valuemap:
+            name: 'Codex IA Status'
+          preprocessing:
+            -
+              type: JSONPATH
+              parameters:
+                - $.internet.googleSemSsl.situacao
+              error_handler: CUSTOM_VALUE
+              error_handler_params: '2'
+            -
+              type: STR_REPLACE
+              parameters:
+                - SUCESSO
+                - '1'
+            -
+              type: STR_REPLACE
+              parameters:
+                - FALHA
+                - '0'
+          master_item:
+            key: codex.get.monitoraIris
+          tags:
+            -
+              tag: Application
+              value: Internet
+        -
+          uuid: e8125cbd99b34de8b5f2cb041b312c31
+          name: 'Iris: Memória livre'
+          type: DEPENDENT
+          key: codex.iris.memoriaLivre
+          delay: '0'
+          units: B
+          valuemap:
+            name: 'Codex IA Status'
+          preprocessing:
+            -
+              type: JSONPATH
+              parameters:
+                - $.aplicacao.sistema.memoria.livre
+            -
+              type: MULTIPLIER
+              parameters:
+                - '1024'
+            -
+              type: MULTIPLIER
+              parameters:
+                - '1024'
+          master_item:
+            key: codex.get.monitoraIris
+          tags:
+            -
+              tag: Application
+              value: Memória
+        -
+          uuid: d18d0ebed19642919ba1b2be9acafac2
+          name: 'Iris: Memória total'
+          type: DEPENDENT
+          key: codex.iris.memoriaTotal
+          delay: '0'
+          units: B
+          valuemap:
+            name: 'Codex IA Status'
+          preprocessing:
+            -
+              type: JSONPATH
+              parameters:
+                - $.aplicacao.sistema.memoria.total
+            -
+              type: MULTIPLIER
+              parameters:
+                - '1024'
+            -
+              type: MULTIPLIER
+              parameters:
+                - '1024'
+          master_item:
+            key: codex.get.monitoraIris
+          tags:
+            -
+              tag: Application
+              value: Memória
+        -
+          uuid: ad5cb35107d84766bddc23745aa60314
+          name: 'Iris: Memória usada'
+          type: DEPENDENT
+          key: codex.iris.memoriaUsada
+          delay: '0'
+          units: B
+          valuemap:
+            name: 'Codex IA Status'
+          preprocessing:
+            -
+              type: JSONPATH
+              parameters:
+                - $.aplicacao.sistema.memoria.usada
+            -
+              type: MULTIPLIER
+              parameters:
+                - '1024'
+            -
+              type: MULTIPLIER
+              parameters:
+                - '1024'
+          master_item:
+            key: codex.get.monitoraIris
+          tags:
+            -
+              tag: Application
+              value: Memória
+        -
+          uuid: 7e6c1bff1f334fd0805f56b090bd000f
+          name: 'Iris: Status da escrita no Storage'
+          type: DEPENDENT
+          key: codex.iris.storageEscrita
+          delay: '0'
+          valuemap:
+            name: 'Codex IA Status'
+          preprocessing:
+            -
+              type: JSONPATH
+              parameters:
+                - $.storage.escrita.situacao
+              error_handler: CUSTOM_VALUE
+              error_handler_params: '2'
+            -
+              type: STR_REPLACE
+              parameters:
+                - SUCESSO
+                - '1'
+            -
+              type: STR_REPLACE
+              parameters:
+                - FALHA
+                - '0'
+          master_item:
+            key: codex.get.monitoraIris
+          tags:
+            -
+              tag: Application
+              value: Storage
+          triggers:
+            -
+              uuid: bdc9669e8575495b97c92831e709e357
+              expression: 'max(/Template App Codex IA by HTTP/codex.iris.storageEscrita,5m)=0'
+              name: 'Iris: Erro ao realizar escrita no Storage'
+              priority: WARNING
+        -
+          uuid: 54644b8e247c422093a20f5e43bcdd2d
+          name: 'Iris: Status da exclusao no Storage'
+          type: DEPENDENT
+          key: codex.iris.storageExclusao
+          delay: '0'
+          valuemap:
+            name: 'Codex IA Status'
+          preprocessing:
+            -
+              type: JSONPATH
+              parameters:
+                - $.storage.exclusao.situacao
+              error_handler: CUSTOM_VALUE
+              error_handler_params: '2'
+            -
+              type: STR_REPLACE
+              parameters:
+                - SUCESSO
+                - '1'
+            -
+              type: STR_REPLACE
+              parameters:
+                - FALHA
+                - '0'
+          master_item:
+            key: codex.get.monitoraIris
+          tags:
+            -
+              tag: Application
+              value: Storage
+          triggers:
+            -
+              uuid: d405feadaf5749cc96246b941b0daf4a
+              expression: 'max(/Template App Codex IA by HTTP/codex.iris.storageExclusao,5m)=0'
+              name: 'Iris: Erro ao realizar exclusão no Storage'
+              priority: WARNING
+        -
+          uuid: 712a8dd514cc4932b5abb9b40535283c
+          name: 'Iris: Status da leitura no Storage'
+          type: DEPENDENT
+          key: codex.iris.storageLeitura
+          delay: '0'
+          valuemap:
+            name: 'Codex IA Status'
+          preprocessing:
+            -
+              type: JSONPATH
+              parameters:
+                - $.storage.leitura.situacao
+              error_handler: CUSTOM_VALUE
+              error_handler_params: '2'
+            -
+              type: STR_REPLACE
+              parameters:
+                - SUCESSO
+                - '1'
+            -
+              type: STR_REPLACE
+              parameters:
+                - FALHA
+                - '0'
+          master_item:
+            key: codex.get.monitoraIris
+          tags:
+            -
+              tag: Application
+              value: Storage
+          triggers:
+            -
+              uuid: ab5cb9da13954fe9a08cd5b2d557a0da
+              expression: 'max(/Template App Codex IA by HTTP/codex.iris.storageLeitura,5m)=0'
+              name: 'Iris: Erro ao realizar leitura no Storage'
+              priority: WARNING
+        -
+          uuid: 4743eb0e604644699f6db9a76f58a546
+          name: 'Iris: Utilização de memória'
+          type: CALCULATED
+          key: codex.iris.utilizacaoMemoria
+          delay: 2m
+          value_type: FLOAT
+          units: '%'
+          params: '100*last(//codex.iris.memoriaUsada)/last(//codex.iris.memoriaTotal)'
+          tags:
+            -
+              tag: Application
+              value: Memória
+        -
+          uuid: 3a51c224a3f844cfa89d5df20b9afbd8
+          name: 'Iris: Versão'
+          type: DEPENDENT
+          key: codex.iris.versao
+          delay: '0'
+          trends: '0'
+          value_type: TEXT
+          preprocessing:
+            -
+              type: JSONPATH
+              parameters:
+                - $.aplicacao.versao
+          master_item:
+            key: codex.get.monitoraIris
+          tags:
+            -
+              tag: Application
+              value: Codex
+        -
+          uuid: 02d18ad3dd77414ea30865dfff7c2828
+          name: 'Pessoas comunicadas'
+          type: DEPENDENT
+          key: codex.pessoa.comunicadas
+          delay: '0'
+          preprocessing:
+            -
+              type: JSONPATH
+              parameters:
+                - $.comunicadas
+          master_item:
+            key: codex.get.estatisticaPessoa
+          tags:
+            -
+              tag: Application
+              value: 'Estatisticas Pessoa'
+        -
+          uuid: eca11395455b40489c965cd6983ea6cd
+          name: 'Pessoas excluidas'
+          type: DEPENDENT
+          key: codex.pessoa.excluidas
+          delay: '0'
+          preprocessing:
+            -
+              type: JSONPATH
+              parameters:
+                - $.excluidas
+          master_item:
+            key: codex.get.estatisticaPessoa
+          tags:
+            -
+              tag: Application
+              value: 'Estatisticas Pessoa'
+        -
+          uuid: 4040e056981d465aa1bdb0bcd15d4034
+          name: 'Pessoas inaptas'
+          type: DEPENDENT
+          key: codex.pessoa.inaptas
+          delay: '0'
+          preprocessing:
+            -
+              type: JSONPATH
+              parameters:
+                - $.inaptas
+          master_item:
+            key: codex.get.estatisticaPessoa
+          tags:
+            -
+              tag: Application
+              value: 'Estatisticas Pessoa'
+        -
+          uuid: 135b770385e848d5af1b133009f6d6dd
+          name: 'Pessoas sincronizadas'
+          type: DEPENDENT
+          key: codex.pessoa.sincronizadas
+          delay: '0'
+          preprocessing:
+            -
+              type: JSONPATH
+              parameters:
+                - $.sincronizadas
+          master_item:
+            key: codex.get.estatisticaPessoa
+          tags:
+            -
+              tag: Application
+              value: 'Estatisticas Pessoa'
+        -
+          uuid: 89ed0b7e47834bc2bbadd63f49c95b11
+          name: 'Pessoas totais'
+          type: DEPENDENT
+          key: codex.pessoa.total
+          delay: '0'
+          preprocessing:
+            -
+              type: JSONPATH
+              parameters:
+                - $.total
+          master_item:
+            key: codex.get.estatisticaPessoa
+          tags:
+            -
+              tag: Application
+              value: 'Estatisticas Pessoa'
+        -
+          uuid: 2fab168601a44a25bc61b855aad81d51
+          name: 'Prisma: Google com SSL'
+          type: DEPENDENT
+          key: codex.prisma.googleComSSL
+          delay: '0'
+          valuemap:
+            name: 'Codex IA Status'
+          preprocessing:
+            -
+              type: JSONPATH
+              parameters:
+                - $.internet.googleComSsl.situacao
+              error_handler: CUSTOM_VALUE
+              error_handler_params: '2'
+            -
+              type: STR_REPLACE
+              parameters:
+                - SUCESSO
+                - '1'
+            -
+              type: STR_REPLACE
+              parameters:
+                - FALHA
+                - '0'
+          master_item:
+            key: codex.get.monitoraPrisma
+          tags:
+            -
+              tag: Application
+              value: Internet
+        -
+          uuid: c6d5ead47a644162a7508402ac4666c4
+          name: 'Prisma: Google sem SSL'
+          type: DEPENDENT
+          key: codex.prisma.googleSemSSL
+          delay: '0'
+          valuemap:
+            name: 'Codex IA Status'
+          preprocessing:
+            -
+              type: JSONPATH
+              parameters:
+                - $.internet.googleSemSsl.situacao
+              error_handler: CUSTOM_VALUE
+              error_handler_params: '2'
+            -
+              type: STR_REPLACE
+              parameters:
+                - SUCESSO
+                - '1'
+            -
+              type: STR_REPLACE
+              parameters:
+                - FALHA
+                - '0'
+          master_item:
+            key: codex.get.monitoraPrisma
+          tags:
+            -
+              tag: Application
+              value: Internet
+        -
+          uuid: 22c46e956eee486d9ca7339f6f1f22dc
+          name: 'Prisma: Acesso ao Iris'
+          type: DEPENDENT
+          key: codex.prisma.irisAcesso
+          delay: '0'
+          valuemap:
+            name: 'Codex IA Status'
+          preprocessing:
+            -
+              type: JSONPATH
+              parameters:
+                - $.iris.acesso.situacao
+              error_handler: CUSTOM_VALUE
+              error_handler_params: '2'
+            -
+              type: STR_REPLACE
+              parameters:
+                - SUCESSO
+                - '1'
+            -
+              type: STR_REPLACE
+              parameters:
+                - FALHA
+                - '0'
+          master_item:
+            key: codex.get.monitoraPrisma
+          tags:
+            -
+              tag: Application
+              value: 'Integracao Iris'
+          triggers:
+            -
+              uuid: 21e7a9cc1cab4fd2b2ffe659cb2d1f94
+              expression: 'max(/Template App Codex IA by HTTP/codex.prisma.irisAcesso,5m)=0'
+              name: 'Prisma: Erro ao acessar o Iris'
+              priority: WARNING
+        -
+          uuid: 1b768c9fb40b4d16bc82a537bb378fa9
+          name: 'Prisma: Integração com o Iris'
+          type: DEPENDENT
+          key: codex.prisma.irisIntegracao
+          delay: '0'
+          valuemap:
+            name: 'Codex IA Status'
+          preprocessing:
+            -
+              type: JSONPATH
+              parameters:
+                - $.iris.integracao.situacao
+              error_handler: CUSTOM_VALUE
+              error_handler_params: '2'
+            -
+              type: STR_REPLACE
+              parameters:
+                - SUCESSO
+                - '1'
+            -
+              type: STR_REPLACE
+              parameters:
+                - FALHA
+                - '0'
+          master_item:
+            key: codex.get.monitoraPrisma
+          tags:
+            -
+              tag: Application
+              value: 'Integracao Iris'
+          triggers:
+            -
+              uuid: 18291819f8894579b4b6f6beecdbed5d
+              expression: 'max(/Template App Codex IA by HTTP/codex.prisma.irisIntegracao,5m)=0'
+              name: 'Prisma: Erro na integração com o Iris'
+              priority: WARNING
+        -
+          uuid: 870a30877590427dad15b299b827cf09
+          name: 'Prisma: Memória livre'
+          type: DEPENDENT
+          key: codex.prisma.memoriaLivre
+          delay: '0'
+          units: B
+          preprocessing:
+            -
+              type: JSONPATH
+              parameters:
+                - $.aplicacao.sistema.memoria.livre
+            -
+              type: MULTIPLIER
+              parameters:
+                - '1024'
+            -
+              type: MULTIPLIER
+              parameters:
+                - '1024'
+          master_item:
+            key: codex.get.monitoraPrisma
+          tags:
+            -
+              tag: Application
+              value: Memória
+        -
+          uuid: e306e84a29a14efc8922ae3fb78c4223
+          name: 'Prisma: Memória total'
+          type: DEPENDENT
+          key: codex.prisma.memoriaTotal
+          delay: '0'
+          units: B
+          valuemap:
+            name: 'Codex IA Status'
+          preprocessing:
+            -
+              type: JSONPATH
+              parameters:
+                - $.aplicacao.sistema.memoria.total
+            -
+              type: MULTIPLIER
+              parameters:
+                - '1024'
+            -
+              type: MULTIPLIER
+              parameters:
+                - '1024'
+          master_item:
+            key: codex.get.monitoraPrisma
+          tags:
+            -
+              tag: Application
+              value: Memória
+        -
+          uuid: e288eac1cd51464a82d84f6d970b0727
+          name: 'Prisma: Memória usada'
+          type: DEPENDENT
+          key: codex.prisma.memoriaUsada
+          delay: '0'
+          units: B
+          valuemap:
+            name: 'Codex IA Status'
+          preprocessing:
+            -
+              type: JSONPATH
+              parameters:
+                - $.aplicacao.sistema.memoria.usada
+            -
+              type: MULTIPLIER
+              parameters:
+                - '1024'
+            -
+              type: MULTIPLIER
+              parameters:
+                - '1024'
+          master_item:
+            key: codex.get.monitoraPrisma
+          tags:
+            -
+              tag: Application
+              value: Memória
+        -
+          uuid: 769f4959a2dd475191284befcc3ec6eb
+          name: 'Prisma: Utilização de memória'
+          type: CALCULATED
+          key: codex.prisma.utilizacaoMemoria
+          delay: 2m
+          value_type: FLOAT
+          units: '%'
+          params: '100*last(//codex.prisma.memoriaUsada)/last(//codex.prisma.memoriaTotal)'
+          tags:
+            -
+              tag: Application
+              value: Memória
+        -
+          uuid: 9514e0fddec4476daa45fedba3c79bbc
+          name: 'Prisma: Versão'
+          type: DEPENDENT
+          key: codex.prisma.versao
+          delay: '0'
+          trends: '0'
+          value_type: TEXT
+          preprocessing:
+            -
+              type: JSONPATH
+              parameters:
+                - $.aplicacao.versao
+          master_item:
+            key: codex.get.monitoraPrisma
+          tags:
+            -
+              tag: Application
+              value: Codex
+        -
+          uuid: 63980b2890d345ae88fdbd5cbff76f2d
+          name: 'Processos comunicados'
+          type: DEPENDENT
+          key: codex.processo.comunicados
+          delay: '0'
+          preprocessing:
+            -
+              type: JSONPATH
+              parameters:
+                - $.comunicados
+          master_item:
+            key: codex.get.estatisticaProcesso
+          tags:
+            -
+              tag: Application
+              value: 'Estatisticas Processo'
+        -
+          uuid: 18ae5942030741619073ddfdd4ed9b39
+          name: 'Processos excluidos'
+          type: DEPENDENT
+          key: codex.processo.excluidos
+          delay: '0'
+          preprocessing:
+            -
+              type: JSONPATH
+              parameters:
+                - $.excluidos
+          master_item:
+            key: codex.get.estatisticaProcesso
+          tags:
+            -
+              tag: Application
+              value: 'Estatisticas Processo'
+        -
+          uuid: b1603127cc5a42119a31be025eee2123
+          name: 'Processos inaptos'
+          type: DEPENDENT
+          key: codex.processo.inaptos
+          delay: '0'
+          preprocessing:
+            -
+              type: JSONPATH
+              parameters:
+                - $.inaptos
+          master_item:
+            key: codex.get.estatisticaProcesso
+          tags:
+            -
+              tag: Application
+              value: 'Estatisticas Processo'
+        -
+          uuid: fcb2af7a21bd4c27b79e82dd6373c5b7
+          name: 'Processos sincronizados'
+          type: DEPENDENT
+          key: codex.processo.sincronizados
+          delay: '0'
+          preprocessing:
+            -
+              type: JSONPATH
+              parameters:
+                - $.sincronizados
+          master_item:
+            key: codex.get.estatisticaProcesso
+          tags:
+            -
+              tag: Application
+              value: 'Estatisticas Processo'
+        -
+          uuid: a6b27cba3bdb446382b6970a208831ac
+          name: 'Processos totais'
+          type: DEPENDENT
+          key: codex.processo.total
+          delay: '0'
+          preprocessing:
+            -
+              type: JSONPATH
+              parameters:
+                - $.total
+          master_item:
+            key: codex.get.estatisticaProcesso
+          tags:
+            -
+              tag: Application
+              value: 'Estatisticas Processo'
+      httptests:
+        -
+          uuid: 1faddad001164d8b87ab92e940cf6d1c
+          name: 'HTTP Conversor'
+          delay: 2m
+          authentication: BASIC
+          http_user: '{$USER}'
+          http_password: '{$PASS}'
+          steps:
+            -
+              name: Home
+              url: '{$URL}/rest/extracao/monitorarConversor'
+              follow_redirects: 'NO'
+              status_codes: '200'
+          tags:
+            -
+              tag: Application
+              value: HTTP
+        -
+          uuid: 12b5a254a37e40ca8af41ef366ba8805
+          name: 'HTTP Extrator'
+          delay: 2m
+          authentication: BASIC
+          http_user: '{$USER}'
+          http_password: '{$PASS}'
+          steps:
+            -
+              name: Home
+              url: '{$URL}/rest/extracao/monitorar'
+              follow_redirects: 'NO'
+              status_codes: '200'
+          tags:
+            -
+              tag: Application
+              value: HTTP
+        -
+          uuid: 21a7e7a5e0704573bbd8a3db175911ff
+          name: 'HTTP Iris'
+          delay: 2m
+          authentication: BASIC
+          http_user: '{$USER}'
+          http_password: '{$PASS}'
+          steps:
+            -
+              name: Home
+              url: '{$URL}/rest/extracao/monitorarIris'
+              follow_redirects: 'NO'
+              status_codes: '200'
+          tags:
+            -
+              tag: Application
+              value: HTTP
+        -
+          uuid: 48eb1bae68b74621b21d17bb3067c249
+          name: 'HTTP Prisma'
+          delay: 2m
+          authentication: BASIC
+          http_user: '{$USER}'
+          http_password: '{$PASS}'
+          steps:
+            -
+              name: Home
+              url: '{$URL}/rest/extracao/monitorarPrisma'
+              follow_redirects: 'NO'
+              status_codes: '200'
+          tags:
+            -
+              tag: Application
+              value: HTTP
+      macros:
+        -
+          macro: '{$PASS}'
+          value: '< Senha >'
+          description: 'Senha utilizada para acessar o https://codex.ia.pje.jus.br/'
+        -
+          macro: '{$URL}'
+          value: '< URL >'
+          description: 'Ex.: https://pjepg-extrator.tjmt.jus.br'
+        -
+          macro: '{$USER}'
+          value: '< Usuário >'
+          description: 'Usuário utilizado para acessar o https://codex.ia.pje.jus.br/'
+      valuemaps:
+        -
+          uuid: 61f5c68472c74ef4a42beda5e40c0606
+          name: 'Codex IA Status'
+          mappings:
+            -
+              value: '0'
+              newvalue: FALHA
+            -
+              value: '1'
+              newvalue: SUCESSO
+            -
+              value: '2'
+              newvalue: 'ERRO NA COLETA'
+            -
+              value: '3'
+              newvalue: IGNORADO
+  triggers:
+    -
+      uuid: 5dbf08af578c4b5aa7f4e753b6ca8ae0
+      expression: 'max(/Template App Codex IA by HTTP/codex.conversor.googleComSSL,5m)=0 or max(/Template App Codex IA by HTTP/codex.conversor.googleSemSSL,5m)=0'
+      name: 'Conversor: Erro ao acessar o Google'
+      priority: WARNING
+    -
+      uuid: 121e138898ce42e68b7d088efc8087e3
+      expression: 'max(/Template App Codex IA by HTTP/codex.extrator.googleComSSL,5m)=0 or max(/Template App Codex IA by HTTP/codex.extrator.googleSemSSL,5m)=0'
+      name: 'Extrator: Erro ao acessar o Google'
+      priority: WARNING
+    -
+      uuid: a2dff7eb0aa3414180cf8ffd89ac5de1
+      expression: 'max(/Template App Codex IA by HTTP/codex.iris.googleComSSL,5m)=0 or max(/Template App Codex IA by HTTP/codex.iris.googleSemSSL,5m)=0'
+      name: 'Iris: Erro ao acessar o Google'
+      priority: WARNING
+    -
+      uuid: 8e83beb030dc4e6bb63c29740f008dc1
+      expression: 'max(/Template App Codex IA by HTTP/codex.prisma.googleComSSL,5m)=0 or max(/Template App Codex IA by HTTP/codex.prisma.googleSemSSL,5m)=0'
+      name: 'Prisma: Erro ao acessar o Google'
+      priority: WARNING
